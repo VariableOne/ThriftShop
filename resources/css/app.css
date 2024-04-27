@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+#warning {
+  visibility: hidden;
+  left: 0%;
+  width: 80%;
+  margin: auto;
+  width: 400px;
+}
+
+html, body {
+  height: 100%; /* Vollständige Höhe des Viewports */
+  width: 100%;
+  background-image: url('/resources/images/stuffs.jpeg');
+}

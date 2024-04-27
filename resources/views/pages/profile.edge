@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <title>Profile</title>
+</head>
+
+@vite(['/resources/css/profile.css', '/resources/css/profile.css'])
+@vite(['/resources/css/app.css', 'resources/js/app.js'])
+<body>
+    <form action="/profile" method="POST" enctype="multipart/form-data">
+        {{csrfField()}}
+    <div class="wrapper bg-white mt-sm-5">
+        <h4 class="pb-4 border-bottom">Benutzerprofil bearbeiten</h4>
+        <div class="grid-container">
+            <div class="profile-container" onmouseover="showUploadIcon(this)" onmouseout="hideUploadIcon(this)">
+                <input type="file" id="image" name="image" style="display: none;" onchange="changeProfile(this)">
+                <label for="image">
+                    <div class="image-container">
+                        <img id="profile-image" src="/uploads/{{user.profile_picture}}">
+                        <div class="change-profile-overlay">
+                            <i class="fas fa-upload"></i> Profilbild ändern
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>        
+            <div class="py-2">
+                <div class="row py-2">
+                    <div class="col-md-6">
+                        <label for="firstname">Vorname</label>
+                        <input type="text" name="firstname" id="firstname" class="bg-light form-control" placeholder="Vorname" value = "{{user.firstname}}">
+                    </div>
+                    <div class="col-md-6 pt-md-0 pt-3">
+                        <label for="lastname">Nachname</label>
+                        <input type="text" name="lastname" id="lastname" class="bg-light form-control" placeholder="Nachname" value = "{{user.lastname}}">
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-md-6">
+                        <label for="email">Email Addresse</label>
+                        <input type="text" name="email"id="email" class="bg-light form-control" placeholder="Email" value = "{{user.email}}">
+                    </div>
+                        <div class="col-md-6">
+                            <label for="name">Benutzername</label>
+                            <input type="text" name="username" id="username" class="bg-light form-control" placeholder="Benutzername" value = "{{user.username}}">
+                        </div>
+                </div>
+                <div class="row py-2">
+                        <div class="col-md-6">
+                            <label for="name">Telefon</label>
+                            <input type="text" name="telephone" id="telephone" class="bg-light form-control" placeholder="Telefon" value="{{user.telephone}}">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="py-4 pb-4 border-bottom">
+                            <input type="button" class="btn btn-primary" onclick="showPasswordFields()" value ="Passwort ändern">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row py-2">
+                    <div id="additionalPasswordFields" style="display:none;">
+                        <input type="password" class="bg-light form-control" name="password" placeholder="Altes Passwort">
+                        <input type="password" class="bg-light form-control mt-2" name="newPassword" placeholder="Neues Passwort">
+                    </div>
+                </div>        
+                <div class="row py-2">
+                    <div class="col-md-6">
+                        <div class="py-4 pb-4 border-bottom">
+                            <button type="submit" href="/home" class="btn btn-primary" id="submitButton">Speichern</button>
+                        </div>
+                    </div> 
+                </form> 
+                    <div class="col-md-6">
+                        <div class="py-4 pb-4 border-bottom">
+                            <button type="button" class="btn btn-primary" id="closeButton">Verwerfen</button>
+                        </div>
+                    </div>
+                </div>  
+            </div>   
+        </div>  
+    </div>
+</body>
+
+<style>
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: lightgray;
+    background-size: cover;
+}
+
+.image-container {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const firstnameInput = document.getElementById('firstname');
+        const lastnameInput = document.getElementById('lastname');
+        const emailInput = document.getElementById('email');
+        const usernameInput = document.getElementById('username');
+        const telephoneInput = document.getElementById('telephone');
+        const image = document.getElementById('image');
+        const submitButton = document.getElementById('submitButton');
+
+        function checkInputs() {
+            submitButton.disabled = !(firstnameInput.value && lastnameInput.value && emailInput.value && usernameInput.value && telephoneInput.value || image.value);
+        }
+
+        [firstnameInput, lastnameInput, emailInput, usernameInput, telephoneInput, image].forEach(input => {
+            input.addEventListener('input', checkInputs);
+        });
+
+        submitButton.disabled = true;
+    });
+
+    function showUploadIcon(container) {
+        var overlay = container.querySelector('.change-profile-overlay');
+        overlay.style.display = "flex";
+    }
+    
+    function hideUploadIcon(container) {
+        var overlay = container.querySelector('.change-profile-overlay');
+        overlay.style.display = "none";
+    }
+    
+    function changeProfile(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        var profileImage = document.getElementById('profile-image');
+        
+        reader.onload = function(e) {
+            profileImage.src = e.target.result;
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+    function showPasswordFields() {
+    var additionalFields = document.getElementById("additionalPasswordFields");
+    if (additionalFields.style.display === "block") {
+        additionalFields.style.display = "none";
+    } else {
+        additionalFields.style.display = "block";
+    }
+}
+
+    document.addEventListener('DOMContentLoaded', function() {
+    var uploadLink = document.getElementById('closeButton');
+    uploadLink.addEventListener('click', function(event) {
+    window.history.back();});  });
+
+</script>
+
+
+</html>

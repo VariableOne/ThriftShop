@@ -1,0 +1,43 @@
+html, body{
+    background-color: aliceblue;
+    background-image: none;
+    position: relative;
+    justify-content: center;
+  }
+
+.custom-label{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: aliceblue;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 999;
+    color: grey;
+}
+.navbar {
+  margin: 0; /* Entfernt den Standard-Rand um den Körper */
+}
+
+
+body {
+  margin: 0; /* Entfernt den Standard-Rand um den Körper */
+  padding-bottom: 50px; /* Fügt Platz am unteren Rand des Körpers hinzu, um die Navbar zu berücksichtigen */
+  overflow-x: hidden; 
+}
+
+  
+#search_not_empty{
+    display: none;
+    width: 350px;
+    right: -175%;
+}
+
+.chat-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  border-radius: 20px;
+}
