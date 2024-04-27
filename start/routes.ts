@@ -28,15 +28,15 @@ router.post('/home',[UsersController, 'logout']);
 router.get('/profile', [ProfileController, 'getHome']);
 router.post('/profile', [ProfileController, 'updateProfilePicture']);
 
-
 router.get('/logout', [UsersController, 'logout']);
 
 router.post('/newad', [NewadController, 'create']);
 router.get('/newad',[NewadController, 'getNewad']);
 
-
 router.post('/search', [SearchController, 'deactivateAd']); 
 router.get('/search', [SearchController, 'getSearchResults']);
+
+router.get('/message', [SearchController, 'contactPerson']);
 
 
 

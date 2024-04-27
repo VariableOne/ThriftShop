@@ -41,6 +41,11 @@
                                 <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Bestätigendes Passwort">
                             </div>
                             <div class="form-group mb-3">
+                                <div class="d-grid">
+                                    <a href="/auth" class="text-muted" id="authenticate">Doch angemeldet?</a>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
                             <div class="d-grid">
                             <button type="submit" class="btn btn-primary btn-block" id="regBtn">Registrieren</button>
                             </div>
@@ -67,66 +72,6 @@
             document.getElementById("password_warning").style.visibility = "hidden";
         }
 
-      /*  function checkPassword() {
-            var username = document.getElementById("username").value;
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
-            var confirm_password = document.getElementById("confirmPassword").value;
-            var warning = document.getElementById("password_warning");
-            var message = document.getElementById("message");
-
-            var numDigits = password.match(/\d/g) ? password.match(/\d/g).length : 0;
-            var numUppercase = password.match(/[A-Z]/g) ? password.match(/[A-Z]/g).length : 0;
-
-            regBtn.type = "button";
-
-            if(username === ""){
-                warning.style.visibility = "visible";
-                message.innerHTML = "Geben Sie einen Benutzernamen ein";
-                return;
-            }
-
-            if(email === ""){
-                warning.style.visibility = "visible";
-                message.innerHTML = "Geben Sie Ihre Email ein";
-                return;
-            }
-
-            if(password === ""){
-                warning.style.visibility = "visible";
-                message.innerHTML = "Geben Sie ein Passwort ein";
-                return;
-            }
-
-            if(confirm_password === ""){
-                warning.style.visibility = "visible";
-                message.innerHTML = "Bestätigen Sie das Passwort";
-                return;
-            }
-
-            if (password != confirm_password) {
-                warning.style.visibility = "visible";
-                message.innerHTML = "Beide Passwörter müssen gleich sein!";
-                return;
-            }
-
-            if(numUppercase < 2 && numDigits < 2){
-                warning.style.visibility = "visible";
-                message.innerHTML = "Passwort muss mindestens 2 Großbuchstaben und 2 Zahlen enthalten!";
-                return;
-            }
-
-            if (password.length < 8) {
-                warning.style.visibility = "visible";
-                message.innerHTML = "Das Passwort muss mindestens 8 Zeichen lang sein!";
-                return;
-            } 
-
-            else {
-                warning.style.visibility = "hidden";
-                regBtn.type = "submit";
-            }
-        }*/
     </script>
 </body>
 </html>

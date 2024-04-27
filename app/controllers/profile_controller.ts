@@ -22,12 +22,12 @@ export default class ProfileController {
             const img = request.file('image');
             if (!img) {
                 await db.from('users').where('id', user.id).update({
-                    firstname: firstname || user.firstname || firstname ? firstname : "Vorname nicht gegeben",
-                    lastname: lastname || user.lastname || lastname ? lastname : "Nachname nicht gegeben",
+                    firstname: firstname || user.firstname,
+                    lastname: lastname || user.lastname,
                     email: email || user.email,
                     username: username || user.username,
                     password: finalPassword,
-                    telephone: telephone || user.telephone || telephone ? telephone : "Telefon nicht gegeben",
+                    telephone: telephone || user.telephone
                 });
 
                 user.firstname = firstname || user.firstname;

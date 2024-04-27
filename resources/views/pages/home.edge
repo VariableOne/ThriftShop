@@ -51,7 +51,6 @@
           </form>
             <br>
         </div>
-        
           </li>
         </a>
         </ul>
@@ -73,6 +72,13 @@
           </form>
         </ul>
           <form class="d-flex" action="/search" method="GET">
+            <select class="form-select" name="priceRange" id="priceRange">
+              <option value="">Preisbereich</option>
+              <option value="under10">Unter 10 Euro</option>
+              <option value="under50">Unter 50 Euro</option>
+              <option value="under500">Unter 500 Euro</option>
+              <option value="over500">Über 500 Euro</option>
+          </select>
             <input class="form-control me-2" type="search" placeholder="Suchen" aria-label="Search" name="searchInput" id="searchInput">
             <button class="btn btn-outline-light" type="submit">Suche</button>
         </form>  

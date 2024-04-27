@@ -8,7 +8,7 @@ import db from "@adonisjs/lucid/services/db"
 export default class SearchController {
 
 
-  public async getSearchResults({ request, view, session }: HttpContext) {
+  public async getSearchResults({ request, view, session, response }: HttpContext) {
       const { searchInput, priceRange } = request.all();
       const user = session.get('user');
       let adsWithUsers;
@@ -62,11 +62,9 @@ export default class SearchController {
               .innerJoin('users', 'newad.user_id', 'users.id')
               .select('newad.title', 'newad.price', 'newad.image', 'newad.description', 'newad.state', 'newad.adress', 'newad.deactivated', 'users.*');
       }
-  
-      return view.render('pages/search', { newads: adsWithUsers });
-  }
-  
 
+      return view.render('pages/search', { newads: adsWithUsers , searchInput});
+  }
 
     async deactivateAd({ request, response }:HttpContext) {
       const adId = request.input('deactivate');
@@ -81,6 +79,10 @@ export default class SearchController {
       }
   }
   
+  async contactPerson({view}: HttpContext){
+
+    return view.render('pages/message');
+  }
     
     
   }

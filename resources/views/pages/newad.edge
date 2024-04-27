@@ -63,12 +63,18 @@
           </select>
         </div>
         <button class="btn btn-primary mr-3" type="submit" id="create_ad">Erstellen</button>
+        <button class="btn btn-danger mr-3" type="button" onclick="getBackToHome()">Verwerfen</button>
       </form>
     </div>
   </div>
 </body>
 
 <script>
+function getBackToHome() {
+    window.location.replace('/profile');
+}
+
+
  function showImage(input) {
     // Lösche alle vorhandenen Bilder, bevor ein neues hinzugefügt wird
     document.getElementById('images-container').innerHTML = '';

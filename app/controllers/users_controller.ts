@@ -32,12 +32,12 @@ export default class UsersController{
 
         const user = {
             id: result.id,
-            firstname: result.firstname,
-            lastname: result.lastname,
+            firstname: result.firstname || result.firstname ? result.firstname : "Vorname nicht gegeben",
+            lastname: result.lastname || result.lastname ? result.lastname : "Nachname nicht gegeben",
             email: result.email,
             username: result.username,
-            telephone: result.telephone,
-            path: result.path,
+            telephone: result.telephone || result.telephone ? result.telephone : "Telefon nicht gegeben",
+            path: result.path || result.oath ? result.path : "uploads/default.jpeg",
             profile_picture: result.profile_picture
         };
         
