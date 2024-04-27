@@ -35,10 +35,11 @@ router.get('/logout', [UsersController, 'logout']);
 router.post('/newad', [NewadController, 'create']);
 router.get('/newad',[NewadController, 'getNewad']);
 
-router.get('/search', [SearchController, 'getSearchResults']);
-
 router.get('/wishlist', [WishlistController, 'getWishlist']);
+router.post('/wishlist', [WishlistController, 'addedToWishlist']); 
+
 router.post('/search', [SearchController, 'deactivateAd']); 
+router.get('/search', [SearchController, 'getSearchResults']);
 
 
 

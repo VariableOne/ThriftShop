@@ -146,7 +146,7 @@
                 <div class="col-md-12 d-flex justify-content-center align-items-center">
                   <form action="/search" method="POST">
                     {{ csrfField() }}
-                    <input type="hidden" name="ad_id" value="{{ newad.id }}">
+                    <input type="hidden" name="deactivate" value="{{ newad.id }}">
                     <button type="submit" class="btn btn-danger" style="pointer-events: {{ newad.deactivated ? 'none' : 'auto' }}">
                       {{ newad.deactivated ? 'Deaktiviert' : 'Deaktivieren' }}
                   </button>                                                

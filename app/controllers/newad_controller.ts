@@ -28,8 +28,6 @@ export default class NewadController {
 
         await image.move(app.publicPath('uploads'), { name: fileName });
 
-     //   const fullFilePath = `${app.publicPath('uploads')}/${fileName}`;
-
         if (!user) {
             console.error("Benutzerdaten nicht verfügbar");
             return response.redirect().toRoute('/auth');
@@ -47,7 +45,8 @@ export default class NewadController {
             adress: adress ? adress : "Adresse nicht gegeben",
             description: description ? description : "Beschreibung nicht gegeben", // Wenn description null ist, ersetze es durch den Ersatztext
             user_id: user.id,
-            deactivated: 0
+            deactivated: 0,
+            wishlist: 0
         });
 
 
@@ -62,7 +61,8 @@ export default class NewadController {
             adress: ad.adress,
             image: ad.fileName,
             description: ad.description,
-            deactivated: 0
+            deactivated: 0,
+            wishlist: 0
         }));
 
         return response.redirect().toRoute('/profile', { user, userAds: userAdsArray});
