@@ -147,8 +147,10 @@
                   <form action="/search" method="POST">
                     {{ csrfField() }}
                     <input type="hidden" name="ad_id" value="{{ newad.id }}">
-                    <button type="submit" class="btn btn-danger">Deaktivieren</button>
-                </form>
+                    <button type="submit" class="btn btn-danger" @if(newad.deactivated) disabled @endif>
+                      {{ newad.deactivated ? 'Deaktiviert' : 'Deaktivieren' }}
+                  </button>                                                
+                  </form>
                                 
                 </div>
               </div>
