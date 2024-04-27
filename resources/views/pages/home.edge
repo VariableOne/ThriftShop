@@ -116,7 +116,7 @@
       @each(newad in newads)
       <div class="col-md-4">
         <br>
-        <div class="card" id = "newad_container" data-ad-id="{{ newad.id }}" style="width: 350px; height: auto;" @if(newad.deactivated === 0) style="filter: grayscale(100%);" @endif>
+        <div class="card" style="width: 350px; height: auto; filter: {{ newad.deactivated ? 'grayscale(100%)' : 'none' }}">
           <div class="card-body">
             <div class="row mb-2">
               <div class="col-md-2">
@@ -183,6 +183,7 @@
 
 
 <script>
+
 
 function checkSearchAndDisplayAlert() {
     var searchTerm = document.getElementById("searchInput").value.trim();
