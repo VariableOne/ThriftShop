@@ -12,7 +12,6 @@ import UsersController from '#controllers/users_controller';
 import ProfileController from '#controllers/profile_controller';
 import NewadController from '#controllers/newad_controller';
 import SearchController from '#controllers/search_controller';
-import WishlistController from '#controllers/wishlist_controller';
 
 router.on('/').render('pages/auth');
 
@@ -35,8 +34,6 @@ router.get('/logout', [UsersController, 'logout']);
 router.post('/newad', [NewadController, 'create']);
 router.get('/newad',[NewadController, 'getNewad']);
 
-router.get('/wishlist', [WishlistController, 'getWishlist']);
-router.post('/wishlist', [WishlistController, 'addedToWishlist']); 
 
 router.post('/search', [SearchController, 'deactivateAd']); 
 router.get('/search', [SearchController, 'getSearchResults']);
