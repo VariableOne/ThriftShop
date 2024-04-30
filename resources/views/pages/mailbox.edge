@@ -5,42 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mailbox</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: lightblue; 
+        }
+
+        .container {
+            background-color: #ffffff; 
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 
-
-@vite(['resources/css/app.css', 'resources/js/app.js'])
 <body>
-    <div class="mailbox">
-        <h1>Mailbox</h1>
-        <div class="messages">
-            @if (messages.length > 0)
-                @each (message in messages)
-                    <div class="message">
-                        <h3>Betreff: {{ message.subject }}</h3>
-                        <p>Nachricht: {{ message.message }}</p>
-                        <p>Sender: {{ message.sender_id }}</p>
-                    </div>
-                @endeach
-            @else
-                <p>Keine Nachrichten vorhanden</p>
-            @endif
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Mailbox</h1>
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="list-group">
+                    @if (messages.length > 0)
+                        @each (message in messages)
+                        <div class="list-group-item list-group-item-action">
+                            <h5 class="mb-3">Nachricht von {{ message.sender_name }}</h5>
+                            <p class="mb-3">{{ message.message }}</p>
+                            <p class="mb-3">{{ message.subject }}</p>
+                            <button class="btn btn-primary mr-3">Antworten</button>
+                        </div>           
+                        <br>             
+                        @endeach
+                    @else
+                        <div class="list-group-item">Keine Nachrichten vorhanden</div>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
-<style>
-    .mailbox {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .message {
-        margin-bottom: 20px;
-        padding: 15px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-</style>
 </html>

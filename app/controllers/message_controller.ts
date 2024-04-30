@@ -14,18 +14,20 @@ export default class MessageController {
         const sender = session.get('user');
     
         // Empfänger Id finden
-        const receiverId = await db.from('users').where('username', receiver).select('id').first();
+        const receiver_name= await db.from('users').where('username', receiver).select('id').first();
+        const name = await db.from('users').where('username', sender.username).select('username').first();
     
-        if (!receiverId) {
+        if (!receiver_name) {
             // Empfänger-Id nicht gefunden
             return 'Empfänger nicht gefunden.';
         }
 
             await db.table('messages').insert({
                 sender_id: sender.id,
-                receiver_id: receiverId.id,
+                receiver_id: receiver_name.id,
                 subject: subject,
-                message: message
+                message: message,
+                sender_name: name.username
             });
 
             const user = session.get('user');
@@ -55,7 +57,7 @@ export default class MessageController {
             }
     
             const messages = await db.from('messages')
-                                    .where('sender_id', user.id)
+                                    .where('receiver_id', user.id)
                                     .orderBy('created_at', 'asc')
                                     .select('*');
     
