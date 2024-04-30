@@ -5,6 +5,12 @@ html, body{
     justify-content: center;
   }
 
+  #empty_screen {
+    padding: 20px; /* Innenabstand des Divs */
+    border-radius: 5px; /* Runde Ecken */
+    position: fixed;
+}
+
 .custom-label{
     position: fixed;
     top: 50%;

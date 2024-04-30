@@ -109,6 +109,7 @@
 
   <div class="container">
     <div class="row">
+      @if (newads.length > 0)
       @each(newad in newads)
       <div class="col-md-4">
         <br>
@@ -159,6 +160,14 @@
         </div>
       </div>
       @endeach
+      @else
+      <body class="bg-light">
+        <div class="container justify-content-center align-items-center">
+            <div class="custom-label" id="empty_screen">
+                <label>Noch keine Anzeigen erstellt</label>
+            </div>
+        </div>
+        @endif
     </div>
   </div>
   
@@ -174,9 +183,6 @@
 </div>
 </form>
 
-<div class="custom-label" id="empty_screen">
-<label>Noch keine Anzeigen erstellt</label>
-</div>
         
 </body>
 
@@ -199,16 +205,6 @@ function checkSearchAndDisplayAlert() {
       var alert = document.getElementById("close_btn");
       alert.addEventListener("click",  document.getElementById("search_not_empty").style.display = "none");
   }
-
-  const newadsEmpty = {{ $newads==0 ? 'true' : 'false' }};
-
-// Wenn newads leer ist, das Label anzeigen
-if (newadsEmpty) {
-    document.getElementById('empty_screen').style.visibility = 'visible';
-} else {
-    // Andernfalls das Label ausblenden
-    document.getElementById('empty_screen').style.visibility = 'hidden';
-}
 
 
 document.addEventListener("DOMContentLoaded", function () {

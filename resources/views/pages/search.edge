@@ -28,6 +28,7 @@
   </div>
 <div class="container">
     <div class="row">
+     @if(newads.length > 0)
       @each(newad in newads)
       @if (!newad.deactivated)
         <div class="col-md-4">
@@ -74,6 +75,14 @@
         </div>
         @endif
         @endeach
+        @else
+        <body class="bg-light">
+          <div class="container justify-content-center align-items-center">
+              <div class="custom-label" id="empty_screen">
+                  <label>Keine Suchergebnisse gefunden</label>
+              </div>
+          </div>
+        @endif
     </div>
 </div>
 </body>

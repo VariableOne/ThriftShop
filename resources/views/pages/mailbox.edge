@@ -31,8 +31,8 @@
                         @each (message in messages)
                         <div class="list-group-item list-group-item-action">
                             <h5 class="mb-3">Nachricht von {{ message.sender_name }}</h5>
+                            <h6 class="mb-3">Betreff: {{ message.subject }}</h6>
                             <p class="mb-3">{{ message.message }}</p>
-                            <p class="mb-3">{{ message.subject }}</p>
                             <a href = "/message/{{message.sender_name}}">
                             <button class="btn btn-primary mr-3" type = "submit">Antworten</button>
                             </a>
