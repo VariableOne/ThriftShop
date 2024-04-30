@@ -21,7 +21,7 @@ export default class NewadController {
         const image = request.file('upload');
 
         if (!image) {
-            return "Bild auswählen!";
+            return view.render('pages/newad', { NewadError: 'Die Felder Title und Price müssen mindestens ausgefüllt sein. Laden Sie bitte mindestens ein Foto hoch' });
         }
         
         const fileName = `${cuid()}.${image.extname}`;
