@@ -12,6 +12,7 @@ import UsersController from '#controllers/users_controller';
 import ProfileController from '#controllers/profile_controller';
 import NewadController from '#controllers/newad_controller';
 import SearchController from '#controllers/search_controller';
+import MessageController from '#controllers/message_controller';
 
 router.on('/').render('pages/auth');
 
@@ -36,7 +37,8 @@ router.get('/newad',[NewadController, 'getNewad']);
 router.post('/search', [SearchController, 'deactivateAd']); 
 router.get('/search', [SearchController, 'getSearchResults']);
 
-router.get('/message', [SearchController, 'contactPerson']);
+router.get('/message/:id', [SearchController, 'contactPerson']);
 
-
+router.post('/message',[MessageController, 'sendMessage']);
+router.get('/mailbox',[MessageController, 'receiveMessage']);
 

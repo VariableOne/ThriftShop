@@ -64,10 +64,9 @@
                     <p class="card-text"><b>Zustand:</b> {{ newad.state }}</p>
                     <hr style="border-top: 1px solid #555;">
                     <div class="col-md-12 d-flex justify-content-center align-items-center">
-                <form action="/message" method ="GET">
-                    {{ csrfField() }}
-                    <button type ="submit" class = "btn btn-primary">Anbieter kontaktieren</button>
-                </form>
+                      <a href="/message/{{newad.username}}">
+                    <button type ="button" class = "btn btn-primary">Anbieter kontaktieren</button>
+                     </a>
                 </div>
                 </div>
                 

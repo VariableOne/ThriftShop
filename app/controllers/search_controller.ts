@@ -8,7 +8,7 @@ import db from "@adonisjs/lucid/services/db"
 export default class SearchController {
 
 
-  public async getSearchResults({ request, view, session, response }: HttpContext) {
+  public async getSearchResults({ request, view, session }: HttpContext) {
       const { searchInput, priceRange } = request.all();
       const user = session.get('user');
       let adsWithUsers;
@@ -21,8 +21,8 @@ export default class SearchController {
                       .where('title', 'like', `%${searchInput}%`)
                       .where('price', '<', 10)
                       .whereNot('user_id', user.id)
-                      .innerJoin('users', 'newad.user_id', 'users.id')
-                      .select('newad.title', 'newad.price', 'newad.image', 'newad.description', 'newad.state', 'newad.adress', 'newad.deactivated', 'users.*');
+                      .fullOuterJoin('users', 'newad.user_id', 'users.id')
+                      .select('newad.id','newad.title', 'newad.price', 'newad.image', 'newad.description', 'newad.state', 'newad.adress', 'newad.deactivated', 'users.*');
                   break;
               case 'under50':
                   adsWithUsers = await db
@@ -30,8 +30,8 @@ export default class SearchController {
                       .where('title', 'like', `%${searchInput}%`)
                       .whereBetween('price', [10, 50])
                       .whereNot('user_id', user.id)
-                      .innerJoin('users', 'newad.user_id', 'users.id')
-                      .select('newad.title', 'newad.price', 'newad.image', 'newad.description', 'newad.state', 'newad.adress', 'newad.deactivated', 'users.*');
+                      .fullOuterJoin('users', 'newad.user_id', 'users.id')
+                      .select('newad.id','newad.title', 'newad.price', 'newad.image', 'newad.description', 'newad.state', 'newad.adress', 'newad.deactivated', 'users.*');
                   break;
               case 'under500':
                   adsWithUsers = await db
@@ -39,8 +39,8 @@ export default class SearchController {
                       .where('title', 'like', `%${searchInput}%`)
                       .whereBetween('price', [50, 500])
                       .whereNot('user_id', user.id)
-                      .innerJoin('users', 'newad.user_id', 'users.id')
-                      .select('newad.title', 'newad.price', 'newad.image', 'newad.description', 'newad.state', 'newad.adress', 'newad.deactivated', 'users.*');
+                      .fullOuterJoin('users', 'newad.user_id', 'users.id')
+                      .select('newad.id','newad.title', 'newad.price', 'newad.image', 'newad.description', 'newad.state', 'newad.adress', 'newad.deactivated', 'users.*');
                   break;
               case 'over500':
                   adsWithUsers = await db
@@ -48,8 +48,8 @@ export default class SearchController {
                       .where('title', 'like', `%${searchInput}%`)
                       .where('price', '>', 500)
                       .whereNot('user_id', user.id)
-                      .innerJoin('users', 'newad.user_id', 'users.id')
-                      .select('newad.title', 'newad.price', 'newad.image', 'newad.description', 'newad.state', 'newad.adress', 'newad.deactivated', 'users.*');
+                      .fullOuterJoin('users', 'newad.user_id', 'users.id')
+                      .select('newad.id','newad.title', 'newad.price', 'newad.image', 'newad.description', 'newad.state', 'newad.adress', 'newad.deactivated', 'users.*');
                   break;
               default:
                   break;
@@ -59,14 +59,14 @@ export default class SearchController {
               .from('newad')
               .where('title', 'like', `%${searchInput}%`)
               .whereNot('user_id', user.id)
-              .innerJoin('users', 'newad.user_id', 'users.id')
-              .select('newad.title', 'newad.price', 'newad.image', 'newad.description', 'newad.state', 'newad.adress', 'newad.deactivated', 'users.*');
+              .fullOuterJoin('users', 'newad.user_id', 'users.id')
+              .select('newad.id', 'newad.title', 'newad.price', 'newad.image', 'newad.description', 'newad.state', 'newad.adress', 'newad.deactivated', 'users.*');
       }
 
       return view.render('pages/search', { newads: adsWithUsers , searchInput});
   }
 
-    async deactivateAd({ request, response }:HttpContext) {
+  public async deactivateAd({ request, response }:HttpContext) {
       const adId = request.input('deactivate');
       
       try {
@@ -79,12 +79,16 @@ export default class SearchController {
       }
   }
   
-  async contactPerson({view}: HttpContext){
+  public async contactPerson({ view, params }: HttpContext) {
+    // Den Wert von 'receiver' aus den Query-Parametern der Anfrage abrufen
+    const receiver_id = params.id;
+    
+    console.log(receiver_id);
 
-    return view.render('pages/message');
-  }
-    
-    
+        // Übergebe 'receiver' und 'sender' an die Ansicht
+     return view.render('pages/message', { receiver_id });
+}
+
   }
   
 

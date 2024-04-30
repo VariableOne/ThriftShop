@@ -21,9 +21,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Nachicht senden</div>
-    
                     <div class="card-body">
-                        <form action="#" method="POST">
                             <div class="mb-3">
                                 <label for="subject" class="form-label">Betreff</label>
                                 <input type="text" class="form-control" id="subject" name="subject" required>
@@ -33,10 +31,13 @@
                                 <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
                             </div>
                             <div class="mb-3">
+                                <form action = "/message" method ="POST">
+                                {{ csrfField() }}
                                 <button type="button" class="btn btn-danger">Verwerfen</button>
+                                <input type="hidden" name="receiver" value="{{ receiver_id }}">
                                 <button type="submit" class="btn btn-primary">Abschicken</button>
+                                </form>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>
