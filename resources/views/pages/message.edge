@@ -16,6 +16,8 @@
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 <body>
+    <form action = "/message" method ="POST">
+        {{ csrfField() }}
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -31,8 +33,6 @@
                                 <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
                             </div>
                             <div class="mb-3">
-                                <form action = "/message" method ="POST">
-                                {{ csrfField() }}
                                 <button type="button" class="btn btn-danger">Verwerfen</button>
                                 <input type="hidden" name="receiver" value="{{ receiver_id }}">
                                 <button type="submit" class="btn btn-primary">Abschicken</button>

@@ -6,9 +6,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mailbox</title>
 </head>
-<body>
 
-    <p>{{messages.message}}</p>
-    
+
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+<body>
+    <div class="mailbox">
+        <h1>Mailbox</h1>
+        <div class="messages">
+            @if (messages.length > 0)
+                @each (message in messages)
+                    <div class="message">
+                        <h3>Betreff: {{ message.subject }}</h3>
+                        <p>Nachricht: {{ message.message }}</p>
+                        <p>Sender: {{ message.sender_id }}</p>
+                    </div>
+                @endeach
+            @else
+                <p>Keine Nachrichten vorhanden</p>
+            @endif
+        </div>
+    </div>
 </body>
+
+<style>
+    .mailbox {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .message {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+</style>
 </html>
