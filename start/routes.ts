@@ -40,5 +40,7 @@ router.get('/search', [SearchController, 'getSearchResults']);
 router.get('/message/:id', [SearchController, 'contactPerson']);
 
 router.post('/message',[MessageController, 'sendMessage']);
+
 router.get('/mailbox',[MessageController, 'receiveMessage']);
+
 

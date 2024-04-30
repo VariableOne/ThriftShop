@@ -17,6 +17,7 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
+        
     </style>
 </head>
 
@@ -32,7 +33,9 @@
                             <h5 class="mb-3">Nachricht von {{ message.sender_name }}</h5>
                             <p class="mb-3">{{ message.message }}</p>
                             <p class="mb-3">{{ message.subject }}</p>
-                            <button class="btn btn-primary mr-3">Antworten</button>
+                            <a href = "/message/{{message.sender_name}}">
+                            <button class="btn btn-primary mr-3" type = "submit">Antworten</button>
+                            </a>
                         </div>           
                         <br>             
                         @endeach
