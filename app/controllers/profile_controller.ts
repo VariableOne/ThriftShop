@@ -84,10 +84,11 @@ export default class ProfileController {
     }
 
     public async getHome({ view, session }: HttpContext){
-        const user = session.get('user');
+            const user = session.get('user');
         if (user) {
             const newads = await db.from('newad').where('user_id', user.id);
-            return view.render('pages/home', {user, newads});
+            const messages = await db.from('messages').where('sender_id', user.id);
+            return view.render('pages/home', {user, newads, messages});
         } 
     }
 

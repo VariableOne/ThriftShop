@@ -11,6 +11,13 @@ html, body{
     position: fixed;
 }
 
+.red-dot {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%; /* Macht das Element rund */
+}
+
 .custom-label{
     position: fixed;
     top: 50%;
