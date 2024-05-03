@@ -4,7 +4,7 @@ import { HttpContext } from "@adonisjs/core/http"
 import db from "@adonisjs/lucid/services/db"
 
 export default class MessageController {
-
+ 
     public async sendMessage({ request, session, response }: HttpContext) {
         // Nachrichtendaten aus dem Formular oder der Anfrage erhalten
         const subject = request.input('subject');
@@ -60,10 +60,8 @@ export default class MessageController {
                                     .where('receiver_id', user.id)
                                     .orderBy('created_at', 'asc')
                                     .select('*');
-    
-            console.log(messages);
-            return view.render('pages/mailbox', { messages });
+
+            return view.render('pages/mailbox', { messages});
     }
-    
 
 }

@@ -73,7 +73,14 @@
                 
             </div>
         </div>
-        @endif
+        @elseif(newad.deactivated)
+        <body class="bg-light">
+          <div class="container justify-content-center align-items-center">
+              <div class="custom-label" id="empty_screen">
+                  <label>Keine Suchergebnisse gefunden</label>
+              </div>
+          </div>
+          @endif
         @endeach
         @else
         <body class="bg-light">
