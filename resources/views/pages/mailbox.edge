@@ -43,8 +43,10 @@
                         <div class="list-group-item">Keine Nachrichten vorhanden</div>
                     @endif
                     <br>
-                    <a href = "/profile">
-                    <button class="btn btn-info">Zurück</button>
+                    <form action ="/mailbox" method="POST">
+                    {{ csrfField() }}
+                    <button class="btn btn-info" type = "submit">Zurück</button>
+                    </form>
                     </a>
                 </div>
             </div>

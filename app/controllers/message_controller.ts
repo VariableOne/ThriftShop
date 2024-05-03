@@ -6,6 +6,20 @@ import db from "@adonisjs/lucid/services/db"
 
 export default class MessageController {
 
+    public async backHome({ response, session }: HttpContext){
+
+        const user = session.get('user');
+        if (!user) {
+            return response.redirect().toRoute('pages/auth');
+        }
+        await db.from('users').where('id', user.id).update({ hasMessage: 0 });
+
+        user.hasMessage = 0;
+
+        return response.redirect().toRoute('/profile', {user});
+
+    }
+
     public async sendMessage({ request, session, response }: HttpContext) {
 
         // Nachrichtendaten aus dem Formular oder der Anfrage erhalten
@@ -18,11 +32,6 @@ export default class MessageController {
         // Empfänger Id finden
         const receiver_name= await db.from('users').where('username', receiver).select('id').first();
         const name = await db.from('users').where('username', sender.username).select('username').first();
-    
-        if (!receiver_name) {
-            // Empfänger-Id nicht gefunden
-            return 'Empfänger nicht gefunden.';
-        }
 
         await db.table('messages').insert({
             sender_id: sender.id,
@@ -34,6 +43,8 @@ export default class MessageController {
 
         const user = session.get('user');
         const userAds = await db.from('newad').where('user_id', user.id).select('*');
+        const messagedPerson =  await db.from('users').where('id', receiver_name.id).first();
+        await db.from('users').where('id', receiver_name.id).update({hasMessage: 1}).first();
 
         const userAdsArray = userAds.map(ad => ({
             id: ad.id,
@@ -44,47 +55,29 @@ export default class MessageController {
             image: ad.fileName,
             description: ad.description,
             deactivated: 0,
-            hasMessage: 1
+            hasMessage: messagedPerson.hasMessage
         }));
 
-        let hasMessage = await db.from('users').where('id', receiver_name.id).update('hasMessage', 1);
+        console.log(messagedPerson.hasMessage);
 
-
-        return response.redirect().toRoute('/profile', {user, userAds: userAdsArray, users: hasMessage});
+        return response.redirect().toRoute('/profile', {user, userAds: userAdsArray});
     }
 
     public async receiveMessage({ session, view }: HttpContext) {
   
         const user = session.get('user');
-        const userAds = await db.from('newad').where('user_id', user.id).select('*');
-
-        const userAdsArray = userAds.map(ad => ({
-            id: ad.id,
-            state: ad.state,
-            title: ad.title,
-            price: ad.price,
-            adress: ad.adress,
-            image: ad.fileName,
-            description: ad.description,
-            deactivated: 0,
-            hasMessage: 0
-        }));
-
-        
         if (!user) {
-            throw new Error('Benutzer nicht authentifiziert');
+            return view.render('pages/auth');
         }
-
+        const receiver_name= await db.from('users').where('username', user.username).select('id').first();
+        const messagedPerson =  await db.from('users').where('id', receiver_name.id).first();
+    
         const messages = await db.from('messages')
-                                .where('receiver_id', user.id)
+                                .where('receiver_id', messagedPerson.id)
                                 .orderBy('created_at', 'asc')
                                 .select('*');
 
-        // Setze messageCounter auf false, wenn keine neuen Nachrichten vorhanden sind
-        let hasMessage = await db.from('users').where('id', user.id).update('hasMessage', 0);
-
-        // Übergebe messageCounter als Parameter an die Template-Renderfunktion
-        return view.render('pages/mailbox', { messages, userAds: userAdsArray, users: hasMessage });
+        return view.render('pages/mailbox', { messages, user });
     }
 
 }

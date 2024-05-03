@@ -40,13 +40,6 @@ body {
   overflow-x: hidden; 
 }
 
-  
-#search_not_empty{
-    display: none;
-    width: 350px;
-    right: -175%;
-}
-
 .chat-button {
   position: fixed;
   bottom: 20px;

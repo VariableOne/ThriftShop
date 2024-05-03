@@ -43,4 +43,6 @@ router.post('/message',[MessageController, 'sendMessage']);
 
 router.get('/mailbox',[MessageController, 'receiveMessage']);
 
+router.post('/mailbox',[MessageController, 'backHome']);
+
 

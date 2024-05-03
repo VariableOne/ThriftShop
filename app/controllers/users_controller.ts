@@ -37,8 +37,9 @@ export default class UsersController{
             email: result.email,
             username: result.username,
             telephone: result.telephone || result.telephone ? result.telephone : "Telefon nicht gegeben",
-            path: result.path || result.oath ? result.path : "uploads/default.jpeg",
-            profile_picture: result.profile_picture
+            path: result.path || result.path ? result.path : "uploads/default.jpeg",
+            profile_picture: result.profile_picture,
+            hasMessage: result.hasMessage
         };
         
         session.put('user', user);
@@ -57,7 +58,6 @@ export default class UsersController{
 
             newadsArray.push(newad);
         }
-        console.log(newads);
         
         return view.render('pages/home', { user, newads });
     }
@@ -103,7 +103,6 @@ export default class UsersController{
         password: hashedPassword
     });
     
-   console.log(result);
    return view.render('pages/auth');
 
 }

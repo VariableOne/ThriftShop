@@ -66,12 +66,11 @@ export default class SearchController {
       return view.render('pages/search', { newads: adsWithUsers , searchInput});
   }
 
-  public async deactivateAd({ request, response }:HttpContext) {
-      const adId = request.input('deactivate');
+ public async deactivateAd({ request, response }:HttpContext) {
+ const adId = request.input('deactivate');
       
       try {
           await db.from('newad').where('id', adId).update({ deactivated: 1 });
-          console.log(adId);
           return response.redirect().back();
       } catch (error) {
           console.error('Error deactivating ad:', error);
@@ -82,8 +81,6 @@ export default class SearchController {
   public async contactPerson({ view, params }: HttpContext) {
     // Den Wert von 'receiver' aus den Query-Parametern der Anfrage abrufen
     const receiver_id = params.id;
-    
-    console.log(receiver_id);
 
         // Übergebe 'receiver' und 'sender' an die Ansicht
      return view.render('pages/message', { receiver_id });
