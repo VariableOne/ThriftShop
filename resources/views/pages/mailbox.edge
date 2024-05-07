@@ -29,29 +29,39 @@
                 <div>
                     @if (messages.length > 0)
                         @each (message in messages)
-                        <div class="list-group-item list-group-item">
-                            <h5 class="mb-3">Nachricht von {{ message.sender_name }}</h5>
-                            <h6 class="mb-3">Betreff: {{ message.subject }}</h6>
-                            <p class="mb-3">{{ message.message }}</p>
-                            <a href = "/message/{{message.sender_name}}">
-                            <button class="btn btn-primary mr-3" type = "submit">Antworten</button>
-                            </a>
-                        </div>           
+                        <div class="list-group-item list-group-item d-flex justify-content-between">
+                            <div>
+                                <h5 class="mb-3">Nachricht von {{ message.sender_name }}</h5>
+                                <h6 class="mb-3">Betreff: {{ message.subject }}</h6>
+                                <p class="mb-3">{{ message.message }}</p>
+                                <a href="/message/{{ message.sender_name }}">
+                                    <button class="btn btn-primary" type="submit">Antworten</button>
+                                </a>
+                            </div>
+                            <div>
+                                <small>{{ message.created_at }}</small>
+                            </div>
+                        </div>  
                         <br>             
                         @endeach
                     @else
                         <div class="list-group-item">Keine Nachrichten vorhanden</div>
                     @endif
                     <br>
-                    <form action ="/mailbox" method="POST">
-                    {{ csrfField() }}
-                    <button class="btn btn-info" type = "submit">Zurück</button>
+                    <form>
+                        <button class="btn btn-info" type="button" onclick="goBack()">Zurück</button>
                     </form>
                     </a>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
