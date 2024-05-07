@@ -13,6 +13,7 @@ import ProfileController from '#controllers/profile_controller';
 import NewadController from '#controllers/newad_controller';
 import SearchController from '#controllers/search_controller';
 import MessageController from '#controllers/message_controller';
+import EditController from '#controllers/edit_controller';
 
 router.on('/').render('pages/auth');
 
@@ -44,5 +45,9 @@ router.post('/message',[MessageController, 'sendMessage']);
 router.get('/mailbox',[MessageController, 'receiveMessage']);
 
 router.post('/mailbox',[MessageController, 'backHome']);
+
+router.get('/edit/:id', [EditController, 'getAd']);
+
+router.post('/edit', [EditController, 'editAd']);
 
 

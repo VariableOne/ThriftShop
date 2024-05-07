@@ -21,7 +21,7 @@ export default class NewadController {
         const image = request.file('upload');
 
         if (!image) {
-            return view.render('pages/newad', { NewadError: 'Die Felder Title und Price müssen mindestens ausgefüllt sein. Laden Sie bitte mindestens ein Foto hoch' });
+            return view.render('pages/newad');
         }
         
         const fileName = `${cuid()}.${image.extname}`;
@@ -45,11 +45,8 @@ export default class NewadController {
             adress: adress ? adress : "Adresse nicht gegeben",
             description: description ? description : "Beschreibung nicht gegeben", // Wenn description null ist, ersetze es durch den Ersatztext
             user_id: user.id,
-            deactivated: 0,
-            hasMessage: user.hasMessage
+            deactivated: 0
         });
-
-
     
         const userAds = await db.from('newad').where('user_id', user.id).select('*');
 
@@ -61,8 +58,7 @@ export default class NewadController {
             adress: ad.adress,
             image: ad.fileName,
             description: ad.description,
-            deactivated: 0,
-            hasMessage: user.hasMessage
+            deactivated: 0
         }));
 
         return response.redirect().toRoute('/profile', { user, userAds: userAdsArray});
