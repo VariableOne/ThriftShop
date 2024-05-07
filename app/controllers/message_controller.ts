@@ -63,21 +63,31 @@ export default class MessageController {
         return response.redirect().toRoute('/profile', {user, userAds: userAdsArray});
     }
 
-    public async receiveMessage({ session, view }: HttpContext) {
+    public async receiveMessage({ params,session, view }: HttpContext) {
   
         const user = session.get('user');
         if (!user) {
             return view.render('pages/auth');
         }
-        const receiver_name= await db.from('users').where('username', user.username).select('id').first();
-        const messagedPerson =  await db.from('users').where('id', receiver_name.id).first();
-    
-        const messages = await db.from('messages')
-                                .where('receiver_id', messagedPerson.id)
-                                .orderBy('created_at', 'asc')
-                                .select('*');
 
-        return view.render('pages/mailbox', { messages, user });
+        const contactId = params.id;
+
+        console.log(contactId);
+
+        const contactUser = await db.from('users').where('id', contactId).select('username').first();
+        
+        // Holen der Nachrichten, die zwischen dem aktuellen Benutzer und dem ausgewählten Kontakt ausgetauscht wurden
+        const messages = await db.from('messages')
+            .where('sender_id', contactId)
+            .where('receiver_id', user.id)
+            .orWhere('sender_id', user.id)
+            .where('receiver_id', contactId)
+            .orderBy('created_at', 'asc')
+            .select('*');
+
+        console.log(messages);
+
+        return view.render('pages/mailbox', { messages, user, contactUser });
     }
 
 }

@@ -1,8 +1,6 @@
 'use strict'
 
-import { cuid } from "@adonisjs/core/helpers";
 import { HttpContext } from "@adonisjs/core/http"
-import app from "@adonisjs/core/services/app";
 import db from "@adonisjs/lucid/services/db"
 
 
@@ -21,6 +19,8 @@ export default class ContactsController {
                 .where('messages.receiver_id', user.id)
                 .distinct('users.id', 'users.username')
                 .select('users.*');
+
+                console.log(users);
     
             return view.render('pages/contacts', { users });
         } catch (error) {

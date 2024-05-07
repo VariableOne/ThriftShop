@@ -44,7 +44,7 @@ router.get('/contacts', [ContactsController, 'getContact']);
 router.get('/message/:id', [SearchController, 'contactPerson']);
 router.post('/message',[MessageController, 'sendMessage']);
 
-router.get('/mailbox/:username',[MessageController, 'receiveMessage']);
+router.get('/mailbox/:id',[MessageController, 'receiveMessage']);
 router.post('/mailbox',[MessageController, 'backHome']);
 
 router.get('/edit/:id', [EditController, 'getAd']);
