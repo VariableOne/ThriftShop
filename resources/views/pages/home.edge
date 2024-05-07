@@ -144,7 +144,7 @@
                     </div>
                     <div class="col">
                         <a href="/edit/{{newad.id}}">
-                            <button class="btn btn-primary mr-3" type="submit">Bearbeiten</button>
+                            <button class="btn btn-primary mr-3" type="submit" style="display: {{ newad.deactivated ? 'none' : 'block' }}">Bearbeiten</button>
                         </a> 
                     </div>
                 </div>                                                              
@@ -171,7 +171,7 @@
     </div>
   </div>
   
-  <form action="/mailbox" method="GET">
+  <form action="/contacts" method="GET">
     <button class="btn btn-primary chat-button" type="submit" id="chat-button" style="color: {{ session.get('user').hasMessage ? 'red' : 'white' }}">
       <span style="vertical-align: middle;">
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">

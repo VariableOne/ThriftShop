@@ -14,6 +14,7 @@ import NewadController from '#controllers/newad_controller';
 import SearchController from '#controllers/search_controller';
 import MessageController from '#controllers/message_controller';
 import EditController from '#controllers/edit_controller';
+import ContactsController from '#controllers/contacts_controller';
 
 router.on('/').render('pages/auth');
 
@@ -38,16 +39,15 @@ router.get('/newad',[NewadController, 'getNewad']);
 router.post('/search', [SearchController, 'deactivateAd']); 
 router.get('/search', [SearchController, 'getSearchResults']);
 
-router.get('/message/:id', [SearchController, 'contactPerson']);
+router.get('/contacts', [ContactsController, 'getContact']);
 
+router.get('/message/:id', [SearchController, 'contactPerson']);
 router.post('/message',[MessageController, 'sendMessage']);
 
-router.get('/mailbox',[MessageController, 'receiveMessage']);
-
+router.get('/mailbox/:username',[MessageController, 'receiveMessage']);
 router.post('/mailbox',[MessageController, 'backHome']);
 
 router.get('/edit/:id', [EditController, 'getAd']);
-
 router.post('/edit', [EditController, 'editAd']);
 
 

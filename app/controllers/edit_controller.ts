@@ -11,6 +11,11 @@ export default class EditController {
     public async editAd({request, response, view, session}:HttpContext){
 
         const user = session.get('user');
+
+        if(!user){
+
+           return view.render('pages/auth');
+        }
         const { title, price, state, description, adress} = request.all();
 
         const newadId = request.input('newad');
