@@ -68,9 +68,11 @@ export default class MessageController {
             .orderBy('created_at', 'asc')
             .select('*');
 
+        const users = await db.from('users').whereIn('id', [user.id, contact]).select('id', 'username', 'profile_picture');
+
         console.log(messages);
 
-        return view.render('pages/message', { messages, user, contactUser, contact });
+        return view.render('pages/message', { messages, contactUser, contact, users });
     }
 
 }
