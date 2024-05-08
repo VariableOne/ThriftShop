@@ -20,47 +20,33 @@ export default class MessageController {
 
     }
 
-    public async sendMessage({ request, session, response }: HttpContext) {
+    public async sendMessage({ request, session, view }: HttpContext) {
 
         // Nachrichtendaten aus dem Formular oder der Anfrage erhalten
-        const subject = request.input('subject');
-        const message = request.input('message');
-        const receiver = request.input('receiver');
+        const messageText = request.input('message');
+        const contact = request.input('contact');
         // Absender (aktuell angemeldeter Benutzer) aus der Sitzung erhalten
         const sender = session.get('user');
-    
-        // Empfänger Id finden
-        const receiver_name= await db.from('users').where('username', receiver).select('id').first();
-        const name = await db.from('users').where('username', sender.username).select('username').first();
-
+        const contactUser = await db.from('users').where('id', contact).select('username').first();
+        // Nachricht in der Datenbank speichern
         await db.table('messages').insert({
             sender_id: sender.id,
-            receiver_id: receiver_name.id,
-            subject: subject,
-            message: message,
-            sender_name: name.username
+            receiver_id: contact,
+            message: messageText,
+            sender_name: contactUser
         });
 
+        // Benutzer- und Nachrichtendaten abrufen
         const user = session.get('user');
-        const userAds = await db.from('newad').where('user_id', user.id).select('*');
-        const messagedPerson =  await db.from('users').where('id', receiver_name.id).first();
-        await db.from('users').where('id', receiver_name.id).update({hasMessage: 1}).first();
+        const messages = await db.from('messages')
+            .where('sender_id', contact)
+            .where('receiver_id', user.id)
+            .orWhere('sender_id', user.id)
+            .where('receiver_id', contact)
+            .orderBy('created_at', 'asc')
+            .select('*');
 
-        const userAdsArray = userAds.map(ad => ({
-            id: ad.id,
-            state: ad.state,
-            title: ad.title,
-            price: ad.price,
-            adress: ad.adress,
-            image: ad.fileName,
-            description: ad.description,
-            deactivated: 0,
-            hasMessage: messagedPerson.hasMessage
-        }));
-
-        console.log(messagedPerson.hasMessage);
-
-        return response.redirect().toRoute('/profile', {user, userAds: userAdsArray});
+        return view.render('pages/message', {messages, user, contactUser, contact });
     }
 
     public async receiveMessage({ params,session, view }: HttpContext) {
@@ -69,25 +55,22 @@ export default class MessageController {
         if (!user) {
             return view.render('pages/auth');
         }
+        const contact = params.id;
 
-        const contactId = params.id;
-
-        console.log(contactId);
-
-        const contactUser = await db.from('users').where('id', contactId).select('username').first();
+        const contactUser = await db.from('users').where('id', contact).select('username').first();
         
         // Holen der Nachrichten, die zwischen dem aktuellen Benutzer und dem ausgewählten Kontakt ausgetauscht wurden
         const messages = await db.from('messages')
-            .where('sender_id', contactId)
-            .where('receiver_id', user.id)
-            .orWhere('sender_id', user.id)
-            .where('receiver_id', contactId)
+            .where('sender_id', user.id)
+            .where('receiver_id', contact)
+            .orWhere('sender_id', contact)
+            .orWhere('receiver_id', user.id)
             .orderBy('created_at', 'asc')
             .select('*');
 
         console.log(messages);
 
-        return view.render('pages/mailbox', { messages, user, contactUser });
+        return view.render('pages/message', { messages, user, contactUser, contact });
     }
 
 }

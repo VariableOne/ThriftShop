@@ -78,13 +78,6 @@ export default class SearchController {
       }
   }
   
-  public async contactPerson({ view, params }: HttpContext) {
-    // Den Wert von 'receiver' aus den Query-Parametern der Anfrage abrufen
-    const receiver_id = params.id;
-
-        // Übergebe 'receiver' und 'sender' an die Ansicht
-     return view.render('pages/message', { receiver_id });
-}
 
   }
   

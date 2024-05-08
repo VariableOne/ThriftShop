@@ -6,12 +6,14 @@ import db from "@adonisjs/lucid/services/db"
 
 export default class ContactsController {
 
-    public async getContact({ view, session }: HttpContext) {
+    public async getContact({ view, session, params }: HttpContext) {
         try {
             const user = session.get('user');
             if (!user) {
                 return view.render('pages/auth');
             }
+
+            const contact = params.id;
     
             // Holen der Benutzer, deren Nachrichten an den aktuellen Benutzer gesendet wurden
             const users = await db.from('messages')
@@ -22,7 +24,7 @@ export default class ContactsController {
 
                 console.log(users);
     
-            return view.render('pages/contacts', { users });
+            return view.render('pages/contacts', { users,contact });
         } catch (error) {
             console.error("Error fetching users:", error);
             return view.render('error', { error });

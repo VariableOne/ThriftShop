@@ -41,11 +41,9 @@ router.get('/search', [SearchController, 'getSearchResults']);
 
 router.get('/contacts', [ContactsController, 'getContact']);
 
-router.get('/message/:id', [SearchController, 'contactPerson']);
-router.post('/message',[MessageController, 'sendMessage']);
-
-router.get('/mailbox/:id',[MessageController, 'receiveMessage']);
-router.post('/mailbox',[MessageController, 'backHome']);
+router.get('/message/:id',[MessageController, 'receiveMessage']);
+router.post('/message/:id',[MessageController, 'sendMessage']);
+router.post('/message',[MessageController, 'backHome']);
 
 router.get('/edit/:id', [EditController, 'getAd']);
 router.post('/edit', [EditController, 'editAd']);
