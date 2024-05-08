@@ -38,6 +38,11 @@ export default class MessageController {
 
         // Benutzer- und Nachrichtendaten abrufen
         const user = session.get('user');
+
+        await db.from('users').where('id', contact).update({
+            hasMessage: 1
+            });
+        
         const messages = await db.from('messages')
             .where('sender_id', contact)
             .where('receiver_id', user.id)
@@ -59,6 +64,10 @@ export default class MessageController {
 
         const contactUser = await db.from('users').where('id', contact).select('username').first();
         
+        await db.from('users').where('id', user.id).update({
+            hasMessage: 0
+            });
+
         // Holen der Nachrichten, die zwischen dem aktuellen Benutzer und dem ausgewählten Kontakt ausgetauscht wurden
         const messages = await db.from('messages')
             .where('sender_id', user.id)
