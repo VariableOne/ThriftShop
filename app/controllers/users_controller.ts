@@ -103,7 +103,7 @@ export default class UsersController{
         password: hashedPassword
     });
     
-   return view.render('pages/auth');
+   return view.render('pages/home', {result});
 
 }
     public async switchToProfile({ view, session }: HttpContext){

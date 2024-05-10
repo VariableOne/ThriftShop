@@ -41,7 +41,7 @@ router.get('/search', [SearchController, 'getSearchResults']);
 
 router.get('/contacts', [ContactsController, 'getContact']);
 
-router.get('/message/:id',[MessageController, 'receiveMessage']);
+router.get('/message/:id', [MessageController, 'getMessage']);
 router.post('/message/:id',[MessageController, 'sendMessage']);
 router.post('/message',[MessageController, 'backHome']);
 

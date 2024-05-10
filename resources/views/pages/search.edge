@@ -65,15 +65,17 @@
                     <p class="card-text"><b>Zustand:</b> {{ newad.state }}</p>
                     <hr style="border-top: 1px solid #555;">
                     <div class="col-md-12 d-flex justify-content-center align-items-center">
-                      <a href="/message/{{newad.username}}">
-                    <button type ="button" class = "btn btn-primary">Anbieter kontaktieren</button>
-                     </a>
+                      <form action="/message/{{newad.username}}" method="GET">
+                        {{ csrfField() }}
+                      <input type ="hidden" name = "contact" value = {{receiver_id}}>
+                      <button type ="submit" class = "btn btn-primary">Anbieter kontaktieren</button>
+                      </form>
                 </div>
                 </div>
                 
             </div>
         </div>
-        @elseif(newad.deactivated)
+        @elseif(newad.id.deactivated)
         <body class="bg-light">
           <div class="container justify-content-center align-items-center">
               <div class="custom-label" id="empty_screen">
