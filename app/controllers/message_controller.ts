@@ -35,7 +35,7 @@ export default class MessageController {
 
             const user = session.get('user');
 
-            await db.from('users').where('username', contact).update({
+            await db.from('users').where('id', contactId.id).update({
                 hasMessage: 1
             });
 
@@ -51,7 +51,7 @@ export default class MessageController {
                 .orWhere('id', contact)
                 .select('*');
 
-            return response.redirect().toRoute('/profile', { messages, contactId, contact, user, users });
+            return response.redirect().toRoute('/contacts', { messages, contactId, contact, user, users });
         }
     }
 
@@ -61,7 +61,7 @@ export default class MessageController {
         const contactId = await db.from('users').where('username', contact).select('id').first();
         const user = session.get('user');
 
-        await db.from('users').where('username', contact).update({
+        await db.from('users').where('id', contactId.id).update({
             hasMessage: 0
         });
 

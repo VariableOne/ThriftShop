@@ -15,15 +15,22 @@ export default class ContactsController {
             const contact = params.id;
     
             // Holen der Benutzer, deren Nachrichten an den aktuellen Benutzer gesendet wurden
-            const users = await db.from('messages')
+                 const users = await db.from('messages')
                 .join('users', 'messages.sender_id', '=', 'users.id')
                 .where('messages.receiver_id', user.id)
                 .distinct('users.id', 'users.username')
                 .select('users.*');
+            
+                const message = await db.from('messages')
+                .join('users', 'messages.sender_id', '=', 'users.id')
+                .where('messages.receiver_id', user.id)
+                .orWhere('messages.sender_id', user.id)
+                .orderBy('messages.created_at', 'asc')
+                .first();
 
                 console.log(users);
     
-            return view.render('pages/contacts', { users, contact });
+            return view.render('pages/contacts', { message, users, contact });
         
     }
     

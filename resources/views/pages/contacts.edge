@@ -17,6 +17,12 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
+
+        @keyframes colorChange {
+        0% { background-color: #f3b2b1; }
+        50% { background-color: rgb(247, 98, 98); }
+        100% { background-color: #f3b2b1; }
+    }
         
     </style>
 </head>
@@ -29,7 +35,8 @@
                 <div>
                     @if(users.length > 0)
                         @each (user in users)
-                        <div class="list-group-item list-group-item">
+                        <div class="list-group-item list-group-item"  id="animated-item"
+                        style="background-color: {{ session.get('user').hasMessage && contactUser === message.sender_id ? 'white' : '#f1807e' }}">
                             <div class="profile-container" style="width: 100px; height: 100px; overflow: hidden; border-radius: 50%; background-color: lightgray; margin-bottom: 10px;">
                                 <img src="/uploads/{{user.profile_picture}}" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
@@ -59,4 +66,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
+<script>
+  var animatedItem = document.getElementById('animated-item');
+
+// Starte die Animation, wenn die Seite geladen ist
+window.onload = function() {
+    // Setze die Animation auf das Element
+    animatedItem.style.animation = 'colorChange 6s infinite';
+};
+</script>
 </html>
