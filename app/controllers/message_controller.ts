@@ -1,5 +1,3 @@
-'use strict'
-
 import { HttpContext } from "@adonisjs/core/http"
 import db from "@adonisjs/lucid/services/db"
 
@@ -39,19 +37,7 @@ export default class MessageController {
                 hasMessage: 1
             });
 
-            const messages = await db.from('messages')
-                .join('users', 'messages.sender_id', '=', 'users.id')
-                .where('messages.receiver_id', user.id)
-                .orWhere('messages.sender_id', user.id)
-                .orderBy('messages.created_at', 'asc')
-                .select('messages.*', 'users.username', 'users.profile_picture');
-
-            const users = await db.from('users')
-                .where('id', user.id)
-                .orWhere('id', contact)
-                .select('*');
-
-            return response.redirect().toRoute('/contacts', { messages, contactId, contact, user, users });
+            return response.redirect().toRoute('/contacts');
         }
     }
 
@@ -67,15 +53,15 @@ export default class MessageController {
 
         const messages = await db.from('messages')
             .join('users', 'messages.sender_id', '=', 'users.id')
-            .where('messages.receiver_id', user.id)
-            .orWhere('messages.sender_id', user.id)
+            .where((query) => {
+                query.where('messages.receiver_id', user.id).andWhere('messages.sender_id', contactId.id)
+                    .orWhere('messages.sender_id', user.id).andWhere('messages.receiver_id', contactId.id)
+            })
             .orderBy('messages.created_at', 'asc')
             .select('messages.*', 'users.username', 'users.profile_picture');
 
         const users = await db.from('users')
-            .where('id', user.id)
-            .orWhere('id', contact)
-            .andWhere('username', contactUser.username)
+            .whereIn('id', [user.id, contactId.id])
             .select('*');
 
         return view.render('pages/message', { messages, contact, user, contactUser, users, contactId });
