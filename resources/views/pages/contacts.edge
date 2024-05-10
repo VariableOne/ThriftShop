@@ -17,6 +17,11 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
+
+            /* CSS-Styling für das rote Div */
+    .profile-container.has-message {
+        background-color: #f1807e;
+    }
         
     </style>
 </head>
@@ -29,8 +34,9 @@
                 <div>
                     @if(users.length > 0)
                     @each (user in users)
-                        <div class="list-group-item list-group-item"  id="animated-item"
-                        style="background-color: {{ contactUser === session.get('user').username && session.get('user').hasMessage ? '#f1807e' : 'white' }}">                            <div class="profile-container" style="width: 100px; height: 100px; overflow: hidden; border-radius: 50%; background-color: lightgray; margin-bottom: 10px;">
+                        <div class="list-group-item list-group-item"                       
+                            style="background-color: {{ session.get('user').hasMessage && sendingPerson === user.username ? 'red' : 'white' }}">
+                           <div class="profile-container" style="width: 100px; height: 100px; overflow: hidden; border-radius: 50%; background-color: lightgray; margin-bottom: 10px;">
                                 <img src="/uploads/{{user.profile_picture}}" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
                             <h5 class="mb-3"> {{ user.username }}</h5>
@@ -45,10 +51,8 @@
                         <div class="list-group-item">Keine Nachrichten vorhanden</div>
                     @endif
                     <br>
-                    <form action ="/message" method="POST">
-                    {{ csrfField() }}
-                    <button class="btn btn-info" type = "submit">Zurück</button>
-                    </form>
+                    <a href ="/profile">
+                    <button class="btn btn-info" type = "button">Zurück</button>
                     </a>
                 </div>
             </div>

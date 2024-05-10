@@ -5,6 +5,7 @@ import db from "@adonisjs/lucid/services/db"
 
 
 export default class ContactsController {
+    sendingPerson: any;
 
     public async getContact({ view, session, params }: HttpContext) {
             const user = session.get('user');
@@ -25,12 +26,15 @@ export default class ContactsController {
                 .join('users', 'messages.sender_id', '=', 'users.id')
                 .where('messages.receiver_id', user.id)
                 .orWhere('messages.sender_id', user.id)
-                .orderBy('messages.created_at', 'asc')
+                .orderBy('messages.created_at', 'desc')
                 .first();
 
-                console.log(users);
+
+                const sendingPerson = message.sender_name;
+                
+                console.log(sendingPerson);
     
-            return view.render('pages/contacts', { message, users, contact });
+            return view.render('pages/contacts', { message, users, contact, sendingPerson });
         
     }
     
