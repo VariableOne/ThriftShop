@@ -12,10 +12,136 @@
   width: 400px;
 }
 
+.wrapper {
+  padding: 30px 50px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  margin: 10px auto;
+  max-width: 600px;
+}
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-image {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.change-profile-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  cursor: pointer;
+  display: none;
+}
+
+.profile-container:hover .change-profile-overlay {
+  display: flex;
+}
+
+h4 {
+  letter-spacing: -1px;
+  font-weight: 400;
+}
+
+.img {
+  width: 70px;
+  height: 70px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 20px;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.text-container {
+  padding-left: 10px;
+}
+
+label {
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #777;
+  padding-left: 3px;
+}
+
+.form-control {
+  border-radius: 10px;
+}
+
+input[placeholder] {
+  font-weight: 500;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border: 1.5px solid #0779e4;
+}
+
+.button {
+  background-color: #fff;
+  color: #0779e4;
+}
+
+.button:hover {
+  background-color: #0779e4;
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: #0779e4;
+}
+
+.danger {
+  background-color: #fff;
+  color: #e20404;
+  border: 1px solid #ddd;
+}
+
+.danger:hover {
+  background-color: #e20404;
+  color: #fff;
+}
+
+@media(max-width:576px) {
+  .wrapper {
+      padding: 25px 20px;
+  }
+
+  #deactivate {
+      line-height: 18px;
+  }
+}
+
+.container {
+  background-color: white; 
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+
 html, body {
   height: 100%; /* Vollständige Höhe des Viewports */
   width: 100%;
   background-image: url('/resources/images/stuffs.jpeg');
+  font-family: 'Poppins', sans-serif;
 }
 
 #newad-container {
