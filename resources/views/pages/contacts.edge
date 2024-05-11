@@ -23,16 +23,16 @@
                             <div class="profile-container" style="width: 100px; height: 100px; overflow: hidden; border-radius: 50%; background-color: lightgray; margin-bottom: 10px;">
                                 <img src="/uploads/{{user.profile_picture}}" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
-                            <h5 class="mb-3"> {{ user.username }}</h5>
-                            <a href = "/message/{{user.username}}">
-                            <input type = "hidden" name = "contact" value = {{username}}>
-                            <button class="btn btn-primary mr-3" type = "submit">Zum Kontakt</button>
+                            <h5 class="mb-3">{{ user.username }}</h5>
+                            <a href="/message/{{ user.username }}">
+                                <input type="hidden" name="contact" value="{{ user.username }}">
+                                <button class="btn btn-primary mr-3" type="submit">Zum Kontakt</button>
                             </a>
-                            <form action="/contacts/{{user.username}}" method="POST">
-                                {{csrfField()}}
-                                <input type = "hidden" name = "contact" value = {{username}}>
+                            <form action="/contacts/{{ user.username }}" method="POST" class="d-inline">
+                                {{ csrfField() }}
+                                <input type="hidden" name="contact" value="{{ user.username }}">
                                 <button type="submit" class="btn btn-danger">Löschen</button>
-                              </form>
+                            </form>                                                  
                         </div>           
                         <br>             
                         @endeach
