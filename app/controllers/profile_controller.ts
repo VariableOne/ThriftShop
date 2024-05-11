@@ -50,6 +50,7 @@ export default class ProfileController {
 
                 const fullFilePath = `${app.publicPath('uploads')}/${fileName}`;
 
+            //Anpassung der Profildaten
             await db.from('users').where('id', user.id).update({
                 firstname: firstname || user.firstname,
                 lastname: lastname || user.lastname,
@@ -65,7 +66,7 @@ export default class ProfileController {
                 user_id: user.id
             });
 
-            
+            //falls die restlichen Profildaten gelcih bleibene,w erden deise nicht verändert
             user.firstname = firstname || user.firstname;
             user.lastname = lastname || user.lastname;
             user.email = email || user.email;

@@ -11,7 +11,6 @@
     <title>Authentication Page</title>
 </head>
 
-@vite(['/resources/js/auth.js', '/resources/js/auth.js'])
 @vite(['resources/css/app.css', 'resources/js/auth.js'])
 <body>
     <div class="container">
@@ -64,5 +63,11 @@
     var alert = document.getElementById("close_btn_auth");
     alert.addEventListener("click",  document.getElementById("warning_in_auth").style.visibility = "hidden");
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    var uploadLink = document.getElementById('registrate');
+    uploadLink.addEventListener('click', function(event) {
+    window.location.href = '/registration';});  });
+      
   </script>
 </html>

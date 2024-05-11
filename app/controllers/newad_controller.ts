@@ -14,6 +14,7 @@ export default class NewadController {
   }
 
   public async create({ request, response, view, session }: HttpContext) {
+
     if (request.method() === 'POST') {
         const { title, price, state, description, adress} = request.all();
         const user = session.get('user');
@@ -43,7 +44,7 @@ export default class NewadController {
             state: state, 
             image: fileName,
             adress: adress ? adress : "Adresse nicht gegeben",
-            description: description ? description : "Beschreibung nicht gegeben", // Wenn description null ist, ersetze es durch den Ersatztext
+            description: description ? description : "Beschreibung nicht gegeben",
             user_id: user.id,
             deactivated: 0
         });

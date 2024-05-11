@@ -5,6 +5,7 @@ import db from '@adonisjs/lucid/services/db';
 export default class UsersController{
 
     public async logout({session, view}: HttpContext){
+        
             session.forget('user');
             return view.render('pages/auth');
     }

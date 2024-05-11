@@ -12,7 +12,6 @@ export default class ContactsController {
             if (!user) {
                 return view.render('pages/auth');
             }
-
             const contact = params.id;
     
             // Holen der Benutzer, deren Nachrichten an den aktuellen Benutzer gesendet wurden
@@ -21,7 +20,8 @@ export default class ContactsController {
                 .where('messages.receiver_id', user.id)
                 .distinct('users.id', 'users.username')
                 .select('users.*');
-            
+
+            // Holen aller Nachrichten, um die Sender zu identifizieren
                 const message = await db.from('messages')
                 .join('users', 'messages.sender_id', '=', 'users.id')
                 .where('messages.receiver_id', user.id)
@@ -29,7 +29,7 @@ export default class ContactsController {
                 .orderBy('messages.created_at', 'desc')
                 .first();
 
-
+            //Name des Senders wird mitgegeben, um dann den jeweiligen Kontakt anzeigen lassen zu können
                 const sendingPerson = message.sender_name;
 
     
@@ -40,11 +40,9 @@ export default class ContactsController {
     
     public async deleteMessages({ params, response, session }: HttpContext) {
    
-        const contact = params.id;
-        const user = session.get('user');
-
-        console.log(contact);
-
+          const contact = params.id;
+          const user = session.get('user');
+          //Finde den korrekten Sender, bzw. Kontakt
           const contactId = await db.from('users').where('username', contact).select('id').first();
           // Lösche alle Nachrichten für den angegebenen Kontakt
           await db
@@ -56,7 +54,7 @@ export default class ContactsController {
             builder.where('sender_id', contactId.id).andWhere('receiver_id', user.id)
           })
           .delete()
- 
+          //wieder zurück zur Kontaktseite
           return response.redirect().back()
         } 
       }

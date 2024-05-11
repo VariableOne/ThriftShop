@@ -9,6 +9,9 @@ export default class MessageController {
             return response.redirect().toRoute('pages/auth');
         }
 
+        /*Nur wenn es einen POST-Requets ist, ansonsten wird in der Datenbank 
+        immer wieder beim Neuladen der Seite derselbe Eintrag gespeichert*/
+
         if (request.method() === 'POST') {
             const messageText = request.input('message');
             const contact = request.input('contact');
@@ -24,6 +27,7 @@ export default class MessageController {
                 sender_name: user.username
             });
 
+            // Integer (boolean-ersatz) wird auf 1 gesetzt beim Empfänger, sobald der Sender die Nachricht abschickt
             await db.from('users').where('id', contactId.id).update({
                 hasMessage: 1
             });
@@ -43,9 +47,11 @@ export default class MessageController {
         const contactUser = await db.from('users').where('username', contact).select('username').first();
         const contactId = await db.from('users').where('username', contact).select('id').first();
 
+        // Wenn der Empfänger die Nachricht öffnet, wird hasMessage wieder false, also 0
         await db.from('users').where('id', user.id).update({ hasMessage: 0 });
         user.hasMessage = 0;
 
+        //Es werden nur die Nachrichten geladen, die zwischen user a und user b stattfanden, sonst sind alle Nachrichten vermischt
         const messages = await db.from('messages')
             .join('users', 'messages.sender_id', '=', 'users.id')
             .where((query) => {
@@ -55,6 +61,7 @@ export default class MessageController {
             .orderBy('messages.created_at', 'asc')
             .select('messages.*', 'users.username', 'users.profile_picture');
 
+        //Nur user a und user b dabei mitgeben, bzw. dessen profildaten unter anderem
         const users = await db.from('users')
             .whereIn('id', [user.id, contactId.id])
             .select('*');  

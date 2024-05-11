@@ -67,9 +67,10 @@ export default class SearchController {
   }
 
  public async deactivateAd({ request, response }:HttpContext) {
- const adId = request.input('deactivate');
-      
+    
+    const adId = request.input('deactivate'); 
       try {
+          //Deaktivierung wird auf wahr gesetzt , bzw. auf 1
           await db.from('newad').where('id', adId).update({ deactivated: 1 });
           return response.redirect().back();
       } catch (error) {
