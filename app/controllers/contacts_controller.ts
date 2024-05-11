@@ -31,13 +31,35 @@ export default class ContactsController {
 
 
                 const sendingPerson = message.sender_name;
-                
-                console.log(sendingPerson);
+
     
             return view.render('pages/contacts', { message, users, contact, sendingPerson });
         
     }
+
+    
+    public async deleteMessages({ params, response, session }: HttpContext) {
+   
+        const contact = params.id;
+        const user = session.get('user');
+
+        console.log(contact);
+
+          const contactId = await db.from('users').where('username', contact).select('id').first();
+          // Lösche alle Nachrichten für den angegebenen Kontakt
+          await db
+          .from('messages')
+          .where((builder) => {
+            builder.where('sender_id', user.id).andWhere('receiver_id', contactId.id)
+          })
+          .orWhere((builder) => {
+            builder.where('sender_id', contactId.id).andWhere('receiver_id', user.id)
+          })
+          .delete()
+ 
+          return response.redirect().back()
+        } 
+      }
     
     
     
-}

@@ -43,6 +43,7 @@ router.get('/contacts', [ContactsController, 'getContact']);
 
 router.get('/message/:id', [MessageController, 'getMessage']);
 router.post('/message/:id',[MessageController, 'sendMessage']);
+router.post('/contacts/:id', [ContactsController, 'deleteMessages']);
 
 router.get('/edit/:id', [EditController, 'getAd']);
 router.post('/edit', [EditController, 'editAd']);

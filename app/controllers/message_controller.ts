@@ -61,4 +61,5 @@ export default class MessageController {
 
         return view.render('pages/message', { messages, contact, contactUser, users, contactId, user });
     }
+
 }

@@ -28,11 +28,10 @@
     <div class="card p-4" style="width: 600px;">
       <form id="newadForm" method="POST" enctype="multipart/form-data">
         {{csrfField()}}
-        <input type="text" class="form-control mb-4" id="titleInput" name="title" placeholder="Titel eingeben">
-        
+        <input type="text" class="form-control mb-4" id="titleInput" name="title" placeholder="Titel eingeben" required>
         <div class="profile-container mb-4">
           <input type="file" id="upload" name="upload" multiple style="display:none">
-          <div id="images-container" class="d-flex flex-wrap"></div>
+          <div id="images-container" class="d-flex flex-wrap" required></div>
         </div>
         <label for="upload" class="btn btn-primary">Bild hochladen</label>
 
@@ -44,7 +43,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text">€</span>
           </div>
-          <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="price" name="price">
+          <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="price" name="price" required>
           <div class="input-group-append">
           </div>
         </div>

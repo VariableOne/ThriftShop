@@ -33,8 +33,8 @@ export default class NewadController {
             return response.redirect().toRoute('/auth');
         }
 
-        if (!title || !price || !image) {
-            return view.render('pages/newad', { NewadError: 'Die Felder Title und Price müssen mindestens ausgefüllt sein. Laden Sie bitte mindestens ein Foto hoch' });
+        if (!image) {
+            return view.render('pages/newad', { NewadError: 'Laden Sie bitte mindestens ein Foto hoch' });
         }
 
         await db.table('newad').insert({

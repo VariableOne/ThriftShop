@@ -6,21 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chat</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: lightblue; 
-        }
-
-        .container {
-            background-color: #ffffff; 
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-    </style>
 </head>
 
+@vite(['/resources/css/chat.css', '/resources/js/app.js'])
 <body>
     <div class="container mt-5">
         <h1 class="text-center mb-4">Chat mit {{ contact }}</h1>
