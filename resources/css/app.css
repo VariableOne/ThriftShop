@@ -155,14 +155,6 @@ html, body {
   object-fit: cover;
 }
 
-#newad_error {
-  top: 0; 
-  left: 50%; 
-  transform: translateX(45%);
-  width: 500px;
-  visibility: hidden;
-}
-
 .profile-image {
   width: 100px;
   height: 100px;

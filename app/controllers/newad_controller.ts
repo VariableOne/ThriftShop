@@ -13,16 +13,16 @@ export default class NewadController {
         return view.render('pages/newad');
     }
 
-    public async create({ request, response, view, session }: HttpContext) {
+    public async create({ request, response, session }: HttpContext) {
 
         if (request.method() === 'POST') {
             const { title, price, state, description, adress } = request.all();
             const user = session.get('user');
-
             const image = request.file('upload');
-
+            //Falls kein foto hochgeladen wird, dann wird die Anzeige ohne foto erstellt
             if (!image) {
-                return view.render('pages/newad');
+               
+                return "Foto einfügen bitte";
             }
 
             const fileName = `${cuid()}.${image.extname}`;
@@ -32,10 +32,6 @@ export default class NewadController {
             if (!user) {
                 console.error("Benutzerdaten nicht verfügbar");
                 return response.redirect().toRoute('/auth');
-            }
-
-            if (!image) {
-                return view.render('pages/newad', { NewadError: 'Laden Sie bitte mindestens ein Foto hoch' });
             }
 
             await db.table('newad').insert({
@@ -64,6 +60,7 @@ export default class NewadController {
 
             return response.redirect().toRoute('/profile', { user, userAds: userAdsArray });
         }
+    
     }
 
 

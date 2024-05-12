@@ -14,7 +14,6 @@
 </head>
 
 @vite(['/resources/css/app.css', 'resources/js/app.js'])
-
 <body>
     <form action="/profile" method="POST" enctype="multipart/form-data">
         {{csrfField()}}
@@ -90,7 +89,9 @@
     </form>
     <div class="col-md-6">
         <div class="py-4 pb-4 border-bottom">
-            <button type="button" class="btn btn-primary" id="closeButton">Verwerfen</button>
+            <a href = "/profile">
+            <button type="button" class="btn btn-primary">Verwerfen</button>
+        </a>
         </div>
     </div>
     </div>
@@ -158,13 +159,6 @@
             additionalFields.style.display = "block";
         }
     }
-    //zurück zur home-page
-    document.addEventListener('DOMContentLoaded', function () {
-        var uploadLink = document.getElementById('closeButton');
-        uploadLink.addEventListener('click', function (event) {
-            window.history.back();
-        });
-    });
 
 </script>
 

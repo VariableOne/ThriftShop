@@ -17,33 +17,20 @@
 
 @vite(['/resources/js/app.js', '/resources/js/app.js'])
 @vite(['/resources/css/app.css', '/resources/js/app.js'])
-
 <body>
-  @if(NewadError)
-  <div class="row justify-content-center mt-2" id="newad-container">
-    <div class="alert alert-danger d-flex align-items-center" role="alert" id="warning" style="visibility: visible;">
-      {{NewadError}}
-      <button type="button" class="btn-close" aria-label="Close"
-        onclick="document.getElementById('warning').style.visibility = 'hidden';" id="close_btn"></button>
-    </div>
-  </div>
-  @endif
-
   <div class="container d-flex justify-content-center align-items-center" style="height: 110vh">
     <div class="card p-4" style="width: 600px;">
       <form action="/edit" method="POST" enctype="multipart/form-data">
         {{csrfField()}}
         <input type="hidden" name="newad" value="{{ newad.id }}">
         <input type="text" class="form-control mb-4" id="titleInput" name="title" placeholder="Titel eingeben"
-          value={{newad.title}}>
+          value={{newad.title}} required>
 
         <div class="profile-container mb-4">
           <input type="file" id="upload" name="upload" multiple style="display:none" value={{newad.image}}>
-          <div id="images-container" class="d-flex flex-wrap">
-          </div>
+          <div id="images-container" class="d-flex flex-wrap"></div>
+          <label for="upload" class="btn btn-primary">Bild hochladen</label>
         </div>
-        <label for="upload" class="btn btn-primary">Bild hochladen</label>
-
         <div class="form-group">
           <label for="description" value={{newad.description}}>Beschreibung:</label>
           <textarea class="form-control" id="description" name="description" rows="3"></textarea>
@@ -53,7 +40,7 @@
             <span class="input-group-text">€</span>
           </div>
           <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="price" name="price"
-            value={{newad.price}}>
+            value={{newad.price}} required>
           <div class="input-group-append">
           </div>
         </div>
@@ -75,38 +62,4 @@
     </div>
   </div>
 </body>
-
-<script>
-  function showImage(input) {
-    // Lösche alle vorhandenen Bilder, bevor ein neues hinzugefügt wird
-    document.getElementById('images-container').innerHTML = '';
-
-    // Überprüfen, ob Dateien ausgewählt wurden
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-
-      reader.onload = function (e) {
-        // Erstellen eines img-Elements und Hinzufügen des ausgewählten Bilds
-        var image = document.createElement('img');
-        if (image !== null) { // Typüberprüfung, um sicherzustellen, dass das Element nicht null ist
-          image.src = e.target.result;
-          image.style.width = '100px'; // Ändert die Breite nach Bedarf
-          image.style.height = '100px'; // Ändert die Höhe nach Bedarf
-          image.style.marginRight = '10px'; // Ändert den rechten Abstand nach Bedarf
-          image.style.marginBottom = '10px'; // Ändert den unteren Abstand nach Bedarf
-          image.style.objectFit = 'cover'; // Stellt sicher, dass das Bild den Container abdeckt
-          document.getElementById('images-container').appendChild(image);
-        }
-      }
-
-      reader.readAsDataURL(input.files[0]); // Ausgewählte Datei lesen und in ein Daten-URL-Format konvertieren
-    }
-  }
-
-  // Event-Listener für die Änderung des Datei-Eingabefelds
-  document.getElementById('upload').addEventListener('change', function () {
-    showImage(this); // Die Funktion showImage aufrufen, wenn eine Datei ausgewählt wird
-  });
-</script>
-
 </html>
