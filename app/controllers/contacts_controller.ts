@@ -46,7 +46,7 @@ export default class ContactsController {
     }
 
     
-    public async deleteMessages({ params, response, session }: HttpContext) {
+    public async deleteContact({ params, response, session }: HttpContext) {
    
           const contact = params.id;
           const user = session.get('user');
@@ -62,6 +62,10 @@ export default class ContactsController {
             builder.where('sender_id', contactId.id).andWhere('receiver_id', user.id)
           })
           .delete()
+
+          await db.from('users').where('id', user.id).update({
+            hasMessage: 0
+        });
           //wieder zurück zur Kontaktseite
           return response.redirect().back()
         } 
