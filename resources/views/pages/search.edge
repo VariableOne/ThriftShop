@@ -16,6 +16,7 @@
 @vite(['/resources/js/home.js', '/resources/js/home.js'])
 @vite(['/resources/css/home.css', '/resources/css/home.css'])
 <body>
+<!-- Header wird auch hier inkludiert-->
 @include('pages/header')
 <br>
 
@@ -75,6 +76,7 @@
                 
             </div>
         </div>
+        <!-- Wenn die Kleinanzeige deaktiviert ist,w ird sie auch nicht angezeigt-->
         @elseif(newad.id.deactivated)
         <body class="bg-light">
           <div class="container justify-content-center align-items-center">

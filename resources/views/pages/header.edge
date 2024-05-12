@@ -1,4 +1,5 @@
 
+<!-- Hier sit der Header der Home page-->
 <Header>
   <nav class="navbar navbar-expand-lg navbar-light bg-primary">
     <div class="container-fluid">
@@ -16,17 +17,20 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style ="background-color: lightgrey;">
         <li class="nav-item dropdown">
           <div class="card" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+            <!-- Hier gelangt man zur Seite, wo man das Profil bearbeiten kann-->
             <form action ="/home" method ="GET">
               {{csrfField()}}
             <input class="dropdown-item" type ="submit" value="Profil bearbeiten">
               </form>
               <br>
+              <!-- Rendern der Profildaten -->
               <div class="profile-container" style="width: 100px; height: 100px; overflow: hidden; border-radius: 50%; background-color: lightgray; margin-bottom: 10px;">
                 <img src="/uploads/{{session.get('user').profile_picture}}" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <form action ="/auth" method ="POST">
             <p>{{session.get('user').username}}</p>
             </form>
+            <!-- Hier meldet man sich ab-->
             <form action ="/home" method ="POST">
               {{csrfField()}}
             <a class="btn btn-primary mr-2" href="/logout" style="border-radius: 5px; ">Abmelden</a>
@@ -42,6 +46,7 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
              Neue Anzeige
             </a>
+            <!-- Hier ladet man eine neue Kleinanzeige hoch-->
             <form action ="/newad" method ="GET">
               {{csrfField()}}
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -58,8 +63,9 @@
             </a>
           </li>
           <li>
+          <!-- Rendern der eigenen Anzeigen-->
           <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onclick="renderMain()">
-            Zurück zu meinen Anzeigen
+            Meine Anzeigen
            </a>
         </li>
         </ul>

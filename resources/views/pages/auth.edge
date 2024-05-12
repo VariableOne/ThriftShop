@@ -11,7 +11,7 @@
     <title>Authentication Page</title>
 </head>
 
-@vite(['resources/css/app.css', 'resources/js/auth.js'])
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 <body>
     <div class="container">
       <div class="row">
@@ -21,6 +21,7 @@
               <div class="card-body p-4 p-sm-4">
                 <h4 class="mb-0 text-center">Bei ThriftShop anmelden</h4>
             </div>
+            <!-- Anmeldungsprotokoll-->
               <form action ="/auth" method ="POST">
                 {{csrfField()}}
                 <div class="form-floating mb-4">
@@ -46,6 +47,7 @@
       </div>
       <div class="row justify-content-center mt-7">
         <div class="col-md-4">
+          <!-- Fehlermeldung, wenn benutzername oder Passwort falsch ist-->
           @if(loginError)
             <div class="alert alert-danger d-flex align-items-center justify-content-center" role="alert" id="warning_in_auth">
                 {{loginError}}
@@ -64,6 +66,7 @@
     alert.addEventListener("click",  document.getElementById("warning_in_auth").style.visibility = "hidden");
     }
 
+    //Weiterleitung zur Registrierungsseite
     document.addEventListener('DOMContentLoaded', function() {
     var uploadLink = document.getElementById('registrate');
     uploadLink.addEventListener('click', function(event) {

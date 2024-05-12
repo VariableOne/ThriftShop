@@ -90,6 +90,10 @@
 
 
 <script>
+
+    /*In dieser Funktion wird überprüft, ob mindestens ein Feld verändert wurde,
+    ansonsten kann man keien Änderungen am Profil speichern,
+    nur verwerfen*/
     document.addEventListener('DOMContentLoaded', function() {
         const firstnameInput = document.getElementById('firstname');
         const lastnameInput = document.getElementById('lastname');
@@ -120,6 +124,7 @@
         overlay.style.display = "none";
     }
     
+    //Anzeigen des Profilbildes nach hochladen
     function changeProfile(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -133,6 +138,7 @@
     }
 }
 
+// Anzeigen der Passwortfelder, wenn amn das Passwort ändern will
     function showPasswordFields() {
     var additionalFields = document.getElementById("additionalPasswordFields");
     if (additionalFields.style.display === "block") {
@@ -141,7 +147,7 @@
         additionalFields.style.display = "block";
     }
 }
-
+//zurück zur home-page
     document.addEventListener('DOMContentLoaded', function() {
     var uploadLink = document.getElementById('closeButton');
     uploadLink.addEventListener('click', function(event) {
