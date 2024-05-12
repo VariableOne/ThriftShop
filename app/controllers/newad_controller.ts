@@ -16,15 +16,11 @@ export default class NewadController {
     public async create({ request, response, session }: HttpContext) {
 
         if (request.method() === 'POST') {
-            const { title, price, state, description, adress } = request.all();
+            const { title, price, state, description, adress, image } = request.all();
             const user = session.get('user');
-            const image = request.file('upload');
             //Falls kein foto hochgeladen wird, dann wird die Anzeige ohne foto erstellt
-            if (!image) {
-               
-                return "Foto einfügen bitte";
-            }
-
+            if (image) {
+            
             const fileName = `${cuid()}.${image.extname}`;
 
             await image.move(app.publicPath('uploads'), { name: fileName });
@@ -62,6 +58,7 @@ export default class NewadController {
         }
     
     }
+}
 
 
 }

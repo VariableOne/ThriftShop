@@ -4,6 +4,33 @@
 }
 
 
+
+html, body {
+  height: 100%; /* Vollständige Höhe des Viewports */
+  width: 100%;
+  background-image: url('/resources/images/stuffs.jpeg');
+  font-family: 'Poppins', sans-serif;
+}
+
+#newad-container {
+  position: absolute; 
+}
+
+
+#images-container {
+  display: flex;
+  overflow: hidden; /* Verhindert das Scrollen */
+}
+
+#images-container img {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+
 #warning {
   visibility: hidden;
   left: 0%;
@@ -127,32 +154,6 @@ input[placeholder] {
   #deactivate {
       line-height: 18px;
   }
-}
-
-
-html, body {
-  height: 100%; /* Vollständige Höhe des Viewports */
-  width: 100%;
-  background-image: url('/resources/images/stuffs.jpeg');
-  font-family: 'Poppins', sans-serif;
-}
-
-#newad-container {
-  position: absolute; 
-}
-
-
-#images-container {
-  display: flex;
-  overflow: hidden; /* Verhindert das Scrollen */
-}
-
-#images-container img {
-  margin-right: 10px;
-  margin-bottom: 10px;
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
 }
 
 .profile-image {
