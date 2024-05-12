@@ -1,73 +1,87 @@
-
 <!-- Hier sit der Header der Home page-->
 <Header>
   <nav class="navbar navbar-expand-lg navbar-light bg-primary">
     <div class="container-fluid">
-    <a class="navbar-brand" href="#" style="font-size: larger; font-weight: bold; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5), -2px -2px 4px rgba(0,0,0,0.5);">ThriftShop</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" href="#"
+        style="font-size: larger; font-weight: bold; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5), -2px -2px 4px rgba(0,0,0,0.5);">ThriftShop</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-              <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-            </svg>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style ="background-color: lightgrey;">
-        <li class="nav-item dropdown">
-          <div class="card" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-            <!-- Hier gelangt man zur Seite, wo man das Profil bearbeiten kann-->
-            <form action ="/home" method ="GET">
-              {{csrfField()}}
-            <input class="dropdown-item" type ="submit" value="Profil bearbeiten">
-              </form>
-              <br>
-              <!-- Rendern der Profildaten -->
-              <div class="profile-container" style="width: 100px; height: 100px; overflow: hidden; border-radius: 50%; background-color: lightgray; margin-bottom: 10px;">
-                <img src="/uploads/{{session.get('user').profile_picture}}" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <form action ="/auth" method ="POST">
-            <p>{{session.get('user').username}}</p>
-            </form>
-            <!-- Hier meldet man sich ab-->
-            <form action ="/home" method ="POST">
-              {{csrfField()}}
-            <a class="btn btn-primary mr-2" href="/logout" style="border-radius: 5px; ">Abmelden</a>
-          </form>
-            <br>
-        </div>
-        
-          </li>
-        </a>
-        </ul>
-      </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-             Neue Anzeige
+          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person"
+                viewBox="0 0 16 16">
+                <path
+                  d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+              </svg>
             </a>
-            <!-- Hier ladet man eine neue Kleinanzeige hoch-->
-            <form action ="/newad" method ="GET">
-              {{csrfField()}}
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" type="submit" href="/newad" id="upload"> Hochladen <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-upload" viewBox="0 0 16 16" style="margin-left: 25px;">
-              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-              <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
-              </svg></a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: lightgrey;">
+              <li class="nav-item dropdown">
+                <div class="card"
+                  style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                  <!-- Hier gelangt man zur Seite, wo man das Profil bearbeiten kann-->
+                  <form action="/home" method="GET">
+                    {{csrfField()}}
+                    <input class="dropdown-item" type="submit" value="Profil bearbeiten">
+                  </form>
+                  <br>
+                  <!-- Rendern der Profildaten -->
+                  <div class="profile-container"
+                    style="width: 100px; height: 100px; overflow: hidden; border-radius: 50%; background-color: lightgray; margin-bottom: 10px;">
+                    <img src="/uploads/{{session.get('user').profile_picture}}"
+                      style="width: 100%; height: 100%; object-fit: cover;">
+                  </div>
+                  <form action="/auth" method="POST">
+                    <p>{{session.get('user').username}}</p>
+                  </form>
+                  <!-- Hier meldet man sich ab-->
+                  <form action="/home" method="POST">
+                    {{csrfField()}}
+                    <a class="btn btn-primary mr-2" href="/logout" style="border-radius: 5px; ">Abmelden</a>
+                  </form>
+                  <br>
+                </div>
+
               </li>
+              </a>
             </ul>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Neue Anzeige
+            </a>
+            <!-- Hier ladet man eine neue Kleinanzeige hoch-->
+            <form action="/newad" method="GET">
+              {{csrfField()}}
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" type="submit" href="/newad" id="upload"> Hochladen <svg
+                      xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-upload"
+                      viewBox="0 0 16 16" style="margin-left: 25px;">
+                      <path
+                        d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                      <path
+                        d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
+                    </svg></a>
+                </li>
+              </ul>
+          </li>
           </form>
           <li>
-            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
             </a>
           </li>
           <li>
-          <!-- Rendern der eigenen Anzeigen-->
-          <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" onclick="renderMain()">
-            Meine Anzeigen
-           </a>
-        </li>
+            <!-- Rendern der eigenen Anzeigen-->
+            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false" onclick="renderMain()">
+              Meine Anzeigen
+            </a>
+          </li>
         </ul>
         <form class="d-flex" action="/search" method="GET">
           <select class="form-select" name="priceRange" id="priceRange">
@@ -76,10 +90,11 @@
             <option value="under50">Unter 50 Euro</option>
             <option value="under500">Unter 500 Euro</option>
             <option value="over500">Über 500 Euro</option>
-        </select>
-            <input class="form-control me-2" type="search" placeholder="Suchen" aria-label="Search" name="searchInput" id="searchInput">
-            <button class="btn btn-outline-light" type="submit">Suche</button>
-        </form>  
+          </select>
+          <input class="form-control me-2" type="search" placeholder="Suchen" aria-label="Search" name="searchInput"
+            id="searchInput">
+          <button class="btn btn-outline-light" type="submit">Suche</button>
+        </form>
       </div>
     </div>
   </nav>
@@ -87,8 +102,8 @@
 
 <script>
 
-    function renderMain(){
+  function renderMain() {
 
-        window.location.href = "/profile";
-    }
+    window.location.href = "/profile";
+  }
 </script>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,116 +10,98 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="/resources/js/app.js"></script>
   <title> Searching Page </title>
 </head>
 
-@vite(['/resources/js/home.js', '/resources/js/home.js'])
-@vite(['/resources/css/home.css', '/resources/css/home.css'])
-<body>
-<!-- Header wird auch hier inkludiert-->
-@include('pages/header')
-<br>
+@vite(['/resources/js/app.js', '/resources/js/app.js'])
+@vite(['/resources/css/home.css', '/resources/js/app.js'])
 
-<div class="row">
+<body>
+  <!-- Header wird auch hier inkludiert-->
+  @include('pages/header')
+  <br>
+
+  <div class="row">
     <div class="col">
       <div style="margin-top: 20px; margin-left: 20px;">
         <h4 style="border-bottom: 1px solid grey; width: 90%; color: grey">Suchergebnisse für " {{ searchInput }} "</h3>
       </div>
     </div>
   </div>
-<div class="container">
+  <div class="container">
     <div class="row">
-     @if(newads.length > 0)
+      @if(newads.length > 0)
       @each(newad in newads)
       @if (!newad.deactivated || searchInput == "")
-        <div class="col-md-4">
-            <br>
-            <div class="card" style="width: 350px; height: auto;">
-                <div class="card-body">
-                    <div class="row mb-2">
-                        <div class="col-md-2">
-                            <div class="profile-container" style="width: 50px; height: 50px; overflow: hidden; border-radius: 50%; background-color: lightgray; margin-bottom: 10px;">
-                                <img src="/uploads/{{ newad.profile_picture }}" style="width: 100%; height: 100%; object-fit: cover;">
-                            </div>
-                        </div>
-                        <div class="col-md-9 d-flex align-items-center">
-                            <h5 class="card-title">{{ newad.username }}</h5>
-                        </div>
-                    </div>
-                    <hr style="border-top: 1px solid #555;">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <img src="/uploads/{{ newad.image }}" class="card-img-top" style="width: 300px; height: 200px;">
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12">
-                            <h5 class="card-title">{{ newad.title }}</h5>
-                            <p class="card-text">{{ newad.price }} €</p>                                                                               
-                        </div>
-                    </div>
-                    <hr style="border-top: 1px solid #555;">       
+      <div class="col-md-4">
+        <br>
+        <div class="card" id="newad-card" style="width: 350px; height: auto;">
+          <div class="card-body">
+            <div class="row mb-2">
+              <div class="col-md-2">
+                <div class="profile-container"
+                  style="width: 50px; height: 50px; overflow: hidden; border-radius: 50%; background-color: lightgray; margin-bottom: 10px;">
+                  <img src="/uploads/{{ newad.profile_picture }}" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
-                <div class="card-body" style="display: none; border: 1px solid aliceblue; margin-top: 20px; padding: 10px; background-color: white">
-                    <p class="card-text"><b>Beschreibung:</b> {{newad.description }}</p>
-                    <p class="card-text"><b>Adresse:</b> {{ newad.adress }}</p>
-                    <p class="card-text"><b>Zustand:</b> {{ newad.state }}</p>
-                    <hr style="border-top: 1px solid #555;">
-                    <div class="col-md-12 d-flex justify-content-center align-items-center">
-                      <form action="/message/{{newad.username}}" method="GET">
-                        {{ csrfField() }}
-                      <input type ="hidden" name = "contact" value = {{receiver_id}}>
-                      <button type ="submit" class = "btn btn-primary">Anbieter kontaktieren</button>
-                      </form>
-                </div>
-                </div>
-                
-            </div>
-        </div>
-        <!-- Wenn die Kleinanzeige deaktiviert ist,w ird sie auch nicht angezeigt-->
-        @elseif(newad.id.deactivated)
-        <body class="bg-light">
-          <div class="container justify-content-center align-items-center">
-              <div class="custom-label" id="empty_screen">
-                  <label>Keine Suchergebnisse gefunden</label>
               </div>
+              <div class="col-md-9 d-flex align-items-center">
+                <h5 class="card-title">{{ newad.username }}</h5>
+              </div>
+            </div>
+            <hr style="border-top: 1px solid #555;">
+            <div class="row">
+              <div class="col-md-12">
+                <img src="/uploads/{{ newad.image }}" class="card-img-top" style="width: 300px; height: 200px;">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-12">
+                <h5 class="card-title">{{ newad.title }}</h5>
+                <p class="card-text">{{ newad.price }} €</p>
+              </div>
+            </div>
+            <hr style="border-top: 1px solid #555;">
           </div>
-          @endif
+          <div class="card-body"
+            style="display: none; border: 1px solid aliceblue; margin-top: 20px; padding: 10px; background-color: white">
+            <p class="card-text"><b>Beschreibung:</b> {{newad.description }}</p>
+            <p class="card-text"><b>Adresse:</b> {{ newad.adress }}</p>
+            <p class="card-text"><b>Zustand:</b> {{ newad.state }}</p>
+            <hr style="border-top: 1px solid #555;">
+            <div class="col-md-12 d-flex justify-content-center align-items-center">
+              <form action="/message/{{newad.username}}" method="GET">
+                {{ csrfField() }}
+                <input type="hidden" name="contact" value={{receiver_id}}>
+                <button type="submit" class="btn btn-primary">Anbieter kontaktieren</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- Wenn die Kleinanzeige deaktiviert ist,w ird sie auch nicht angezeigt-->
+      @elseif(newad.id.deactivated)
+
+      <body class="bg-light">
+        <div class="container justify-content-center align-items-center">
+          <div class="custom-label" id="empty_screen">
+            <label>Keine Suchergebnisse gefunden</label>
+          </div>
+        </div>
+        @endif
         @endeach
         @else
+
         <body class="bg-light">
           <div class="container justify-content-center align-items-center">
-              <div class="custom-label" id="empty_screen">
-                  <label>Keine Suchergebnisse gefunden</label>
-              </div>
+            <div class="custom-label" id="empty_screen">
+              <label>Keine Suchergebnisse gefunden</label>
+            </div>
           </div>
-        @endif
+          @endif
     </div>
-</div>
+  </div>
 </body>
 
-<script>
-
-  document.addEventListener("DOMContentLoaded", function () {
-      const cards = document.querySelectorAll(".card");
-  
-      cards.forEach(card => {
-        card.addEventListener("mouseover", function () {
-          this.querySelector(".card-body:last-child").style.display = "block";
-        });
-  
-        card.addEventListener("mouseleave", function () {
-          this.querySelector(".card-body:last-child").style.display = "none";
-        });
-      });
-    });
-
-
-   
-  </script>
-
-  <style>
-
-  </style>
 </html>

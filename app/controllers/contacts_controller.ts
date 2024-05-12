@@ -6,6 +6,7 @@ import db from "@adonisjs/lucid/services/db"
 
 export default class ContactsController {
     sendingPerson: any;
+    receivingPerson: any;
 
     public async getContact({ view, session, params }: HttpContext) {
             const user = session.get('user');
@@ -15,12 +16,14 @@ export default class ContactsController {
             const contact = params.id;
     
             // Holen der Benutzer, deren Nachrichten an den aktuellen Benutzer gesendet wurden
-                 const users = await db.from('messages')
-                .join('users', 'messages.sender_id', '=', 'users.id')
-                .where('messages.receiver_id', user.id)
-                .distinct('users.id', 'users.username')
-                .select('users.*');
-
+            const usersQuery = await db.from('messages')
+            .join('users', 'messages.sender_id', '=', 'users.id')
+            .where('messages.receiver_id', user.id)
+            .distinct('users.id', 'users.username')
+            .select('users.*');
+          
+            const users = usersQuery;
+          
             // Holen aller Nachrichten, um die Sender zu identifizieren
                 const message = await db.from('messages')
                 .join('users', 'messages.sender_id', '=', 'users.id')
@@ -29,11 +32,16 @@ export default class ContactsController {
                 .orderBy('messages.created_at', 'desc')
                 .first();
 
-            //Name des Senders wird mitgegeben, um dann den jeweiligen Kontakt anzeigen lassen zu können
-                const sendingPerson = message.sender_name;
+                const sendingPerson = undefined;
+                const receivingPerson = undefined;
 
+                if(message){
+            // Name des Senders wird mitgegeben, um dann den jeweiligen Kontakt anzeigen lassen zu können
+                this.sendingPerson = message.sender_name;
+                this.receivingPerson = message.receiver_id;
+                }
     
-            return view.render('pages/contacts', { message, users, contact, sendingPerson });
+            return view.render('pages/contacts', { message, users, contact, sendingPerson, receivingPerson });
         
     }
 

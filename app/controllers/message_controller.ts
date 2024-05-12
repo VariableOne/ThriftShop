@@ -42,7 +42,7 @@ export default class MessageController {
         if (!user) {
             return response.redirect().toRoute('pages/auth');
         }
-        
+
         const contact = params.id;
         const contactUser = await db.from('users').where('username', contact).select('username').first();
         const contactId = await db.from('users').where('username', contact).select('id').first();
@@ -64,7 +64,7 @@ export default class MessageController {
         //Nur user a und user b dabei mitgeben, bzw. dessen profildaten unter anderem
         const users = await db.from('users')
             .whereIn('id', [user.id, contactId.id])
-            .select('*');  
+            .select('*');
 
         return view.render('pages/message', { messages, contact, contactUser, users, contactId, user });
     }
