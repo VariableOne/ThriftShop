@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+
   // Funktion zum Einblenden und Ausblenden einer Chat-Benachrichtigung
   function showNotification() {
     var notification = document.getElementById('notification');

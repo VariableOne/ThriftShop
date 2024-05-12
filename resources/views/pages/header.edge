@@ -77,8 +77,8 @@
           </li>
           <li>
             <!-- Rendern der eigenen Anzeigen-->
-            <a class="nav-link" href="/profile" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
+            <a class="nav-link" onclick="backToHome()" href="/profile" id="navbarDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
               Meine Anzeigen
             </a>
           </li>
@@ -99,3 +99,10 @@
     </div>
   </nav>
 </Header>
+
+<script>
+
+  function backToHome() {
+    window.location.href = "/profile"; // Hier die URL einfügen, zu der du weitergeleitet werden möchtest
+  }
+</script>
