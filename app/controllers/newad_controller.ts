@@ -1,29 +1,25 @@
-// app/Controllers/Http/NewadController.ts
-
 import { cuid } from "@adonisjs/core/helpers";
 import { HttpContext } from "@adonisjs/core/http"
 import app from "@adonisjs/core/services/app";
 import db from "@adonisjs/lucid/services/db"
 
-
 export default class NewadController {
 
     public async getNewad({ view }: HttpContext) {
-
         return view.render('pages/newad');
     }
 
     public async create({ request, response, session }: HttpContext) {
-
         if (request.method() === 'POST') {
-            const { title, price, state, description, adress, image } = request.all();
+            const { title, price, state, description, adress } = request.all();
             const user = session.get('user');
-            //Falls kein foto hochgeladen wird, dann wird die Anzeige ohne foto erstellt
-            if (image) {
-            
-            const fileName = `${cuid()}.${image.extname}`;
+            const image = request.file('upload');
+            let fileName = 'afakprnkxpqc0608g6vx6b73.jpeg';
 
-            await image.move(app.publicPath('uploads'), { name: fileName });
+            if (image) {
+                fileName = `${cuid()}.${image.extname}`;
+                await image.move(app.publicPath('uploads'), { name: fileName });
+            }
 
             if (!user) {
                 console.error("Benutzerdaten nicht verfügbar");
@@ -49,21 +45,12 @@ export default class NewadController {
                 title: ad.title,
                 price: ad.price,
                 adress: ad.adress,
-                image: ad.fileName,
+                image: ad.image,
                 description: ad.description,
                 deactivated: 0
             }));
 
             return response.redirect().toRoute('/profile', { user, userAds: userAdsArray });
         }
-    
     }
 }
-
-
-}
-
-
-
-
-
