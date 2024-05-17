@@ -52,6 +52,10 @@ export default class ContactsController {
           const user = session.get('user');
           //Finde den korrekten Sender, bzw. Kontakt
           const contactId = await db.from('users').where('username', contact).select('id').first();
+
+          await db.from('users').where('id', contactId.id).update({
+            hasMessage: 0
+        });
           // Lösche alle Nachrichten für den angegebenen Kontakt
           await db
           .from('messages')

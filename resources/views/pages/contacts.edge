@@ -53,9 +53,10 @@
                         </form>
                     </div>
                     <br>
-                    @else
-                    <div class="list-group-item">Keine Kontakte vorhanden</div>
                     @endeach
+                    @endif
+                    @if(users.length === 0 )
+                    <div class="list-group-item">Keine Kontakte vorhanden</div>
                     @endif
                     <br>
                     <a href="/profile">

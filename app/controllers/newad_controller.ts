@@ -9,7 +9,7 @@ export default class NewadController {
         return view.render('pages/newad');
     }
 
-    public async create({ request, response, session }: HttpContext) {
+    public async create({ request, response, session, view }: HttpContext) {
         if (request.method() === 'POST') {
             const { title, price, state, description, adress } = request.all();
             const user = session.get('user');
@@ -25,6 +25,11 @@ export default class NewadController {
                 console.error("Benutzerdaten nicht verfügbar");
                 return response.redirect().toRoute('/auth');
             }
+
+            if (parseFloat(price) < 0) {
+                return view.render( 'pages/newad', {newadMessage: 'Der Preis darf nicht negativ sein!'});
+            }
+            
 
             await db.table('newad').insert({
                 title: title,

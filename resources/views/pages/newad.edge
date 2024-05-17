@@ -16,6 +16,14 @@
 @vite(['/resources/css/app.css', '/resources/js/app.js'])
 <body>
 
+  @if(newadMessage)
+  <div class="alert alert-danger d-flex align-items-center" role="alert" id="warning" style="visibility: visible;">
+     {{newadMessage}}
+      <button type="button" class="btn-close" aria-label="Close" onclick="document.getElementById('warning').style.visibility = 'hidden';" id="close_btn"></button>
+  </div>
+  @endif
+
+
 <div class="container d-flex justify-content-center align-items-center" style="height: 110vh">
     <div class="card p-4" style="width: 600px;">
       <form id="newadForm" method="POST" enctype="multipart/form-data">
