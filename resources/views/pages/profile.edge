@@ -129,11 +129,19 @@
     
         function checkInputs() {
             submitButton.disabled = !(firstnameInput.value && lastnameInput.value && emailInput.value && usernameInput.value && telephoneInput.value || image.value);
+            submitButton.disabled = (passwordInput.value.trim() !== "" && newPasswordInput.value.trim() !== "");
         }
 
         [firstnameInput, lastnameInput, emailInput, usernameInput, telephoneInput, image].forEach(input => {
             input.addEventListener('input', checkInputs);
         });
+
+        [passwordInput, newPasswordInput].forEach(input => {
+        input.addEventListener('input', checkInputs);
+    });
+
+
+        
         submitButton.disabled = true;
     });
     
