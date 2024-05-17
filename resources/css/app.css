@@ -8,7 +8,7 @@
 html, body {
   height: 100%; /* Vollständige Höhe des Viewports */
   width: 100%;
-  background-image: url('/resources/images/stuffs.jpeg');
+  background-image: url('/resources/images/stuff.jpeg');
   font-family: 'Poppins', sans-serif;
 }
 
