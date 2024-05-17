@@ -7,7 +7,7 @@ import { cuid } from '@adonisjs/core/helpers';
 
 export default class ProfileController {
 
-    public async updateProfilePicture({ request, session, response }: HttpContext) {
+    public async updateProfilePicture({ request, session, response, view }: HttpContext) {
 
         const { image, telephone, email, firstname, lastname, username, password, newPassword } = request.all();
         const user = session.get('user');
@@ -21,6 +21,20 @@ export default class ProfileController {
 
         const img = request.file('image');
         if (!img) {
+
+            if (password === newPassword) {
+                console.log("Passwords has to be different!");
+                return view.render('pages/profile', { user, profileError: "Passwörter dürfen nicht gleich sein!" });
+            }
+    
+            const uppercaseChars = password.match(/[A-Z]/g);
+            const digitChars = password.match(/[0-9]/g);
+            if (password.length < 8 || !uppercaseChars || uppercaseChars.length < 2 || !digitChars || digitChars.length < 2) {
+                console.log("Password criteria not met");
+                return view.render('pages/profile', { user,profileError: 'Das Passwort muss mindestens 8 Zeichen lang sein und mindestens 2 Großbuchstaben sowie 2 Zahlen enthalten!' });
+            }
+
+            
             await db.from('users').where('id', user.id).update({
                 firstname: firstname || user.firstname,
                 lastname: lastname || user.lastname,
@@ -44,6 +58,21 @@ export default class ProfileController {
             return response.redirect().toRoute('/profile', { user, userAds });
         }
 
+      
+        if (password === newPassword) {
+            console.log("Passwords has to be different!");
+            return view.render('pages/profile', { user, profileError: "Passwörter dürfen nicht gleich sein!" });
+        }
+
+        const uppercaseChars = password.match(/[A-Z]/g);
+        const digitChars = password.match(/[0-9]/g);
+        if (password.length < 8 || !uppercaseChars || uppercaseChars.length < 2 || !digitChars || digitChars.length < 2) {
+            console.log("Password criteria not met");
+            return view.render('pages/profile', { user,profileError: 'Das Passwort muss mindestens 8 Zeichen lang sein und mindestens 2 Großbuchstaben sowie 2 Zahlen enthalten!' });
+        }
+
+
+        
         const fileName = `${cuid()}.${img.extname}`;
 
         await img.move(app.publicPath('uploads'), { name: fileName });
@@ -89,7 +118,7 @@ export default class ProfileController {
         if (user) {
             const newads = await db.from('newad').where('user_id', user.id);
             const messages = await db.from('messages').where('sender_id', user.id);
-            return view.render('pages/home', { user, newads, messages });
+            return view.render('pages/home', {user, newads, messages });
         }
     }
 
