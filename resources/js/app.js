@@ -56,3 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById('upload').addEventListener('change', function () {
     showImage(this); // Die Funktion showImage aufrufen, wenn eine Datei ausgewählt wird
   });
+
+
+  

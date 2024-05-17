@@ -36,10 +36,13 @@ export default class ProfileController {
         }
 
         const img = request.file('image');
+        let fileName = 'afakprnkxpqc0608g6vx6b73.jpeg';
+        const fullFilePath = `${app.publicPath('uploads')}/${fileName}`;
+
         if (img) {
-            const fileName = `${cuid()}.${img.extname}`;
+            fileName = `${cuid()}.${img.extname}`;
             await img.move(app.publicPath('uploads'), { name: fileName });
-            const fullFilePath = `${app.publicPath('uploads')}/${fileName}`;
+        } 
 
             await db.from('users').where('id', user.id).update({
                 firstname: firstname || user.firstname,
@@ -54,16 +57,6 @@ export default class ProfileController {
 
             user.profile_picture = fileName;
             user.path = fullFilePath;
-        } else {
-            await db.from('users').where('id', user.id).update({
-                firstname: firstname || user.firstname,
-                lastname: lastname || user.lastname,
-                email: email || user.email,
-                username: username || user.username,
-                password: finalPassword,
-                telephone: telephone || user.telephone
-            });
-        }
 
         user.firstname = firstname || user.firstname;
         user.lastname = lastname || user.lastname;
