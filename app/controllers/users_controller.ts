@@ -1,4 +1,5 @@
 import type { HttpContext } from "@adonisjs/core/http";
+import app from "@adonisjs/core/services/app";
 import hash from "@adonisjs/core/services/hash";
 import db from '@adonisjs/lucid/services/db';
 
@@ -101,10 +102,16 @@ export default class UsersController {
         }
 
         const hashedPassword = await hash.make(password);
+        //Standardfoto bei erstmaliger Nutzung
+        let fileName = 'ydnu8qbrra6miyty5lbjs8m5.jpeg';
+        const fullFilePath = `${app.publicPath('uploads')}/${fileName}`;
+
         const result = await db.table('users').insert({
             username: username,
             email: email,
-            password: hashedPassword
+            password: hashedPassword,
+            profile_picture: fileName,
+            path: fullFilePath
         });
 
         return view.render('pages/auth', { result });

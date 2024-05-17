@@ -36,7 +36,7 @@ export default class ProfileController {
         }
 
         const img = request.file('image');
-        let fileName = 'afakprnkxpqc0608g6vx6b73.jpeg';
+        let fileName = 'ydnu8qbrra6miyty5lbjs8m5.jpeg';
         const fullFilePath = `${app.publicPath('uploads')}/${fileName}`;
 
         if (img) {
