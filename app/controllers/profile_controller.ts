@@ -27,11 +27,16 @@ export default class ProfileController {
                 return view.render('pages/profile', { user, profileError: "Passwörter dürfen nicht gleich sein!" });
             }
     
-            const uppercaseChars = password.match(/[A-Z]/g);
-            const digitChars = password.match(/[0-9]/g);
-            if (password.length < 8 || !uppercaseChars || uppercaseChars.length < 2 || !digitChars || digitChars.length < 2) {
-                console.log("Password criteria not met");
+            const uppercaseChars = newPassword.match(/[A-Z]/g);
+            const digitChars = newPassword.match(/[0-9]/g);
+            if (newPassword.length < 8 || !uppercaseChars || uppercaseChars.length < 2 || !digitChars || digitChars.length < 2) {
+                console.log("Password has to contain 8 letters");
                 return view.render('pages/profile', { user,profileError: 'Das Passwort muss mindestens 8 Zeichen lang sein und mindestens 2 Großbuchstaben sowie 2 Zahlen enthalten!' });
+            }
+
+            if(finalPassword != session.get('user').password){
+                console.log("Old Password not correct");
+                return view.render('pages/profile', { user,profileError: 'Altes Passwort stimmt nicht!' });
             }
 
             

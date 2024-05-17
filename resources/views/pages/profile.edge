@@ -18,11 +18,12 @@
 @vite(['/resources/css/app.css', 'resources/js/app.js'])
 <body>
     @if(profileError)
-    <div class="alert alert-danger d-flex align-items-center" role="alert" id="error_container" style="visibility: visible;">
-        <small>{{profileError}}</small>
-        <button type="button" class="btn-close" aria-label="Close" onclick="document.getElementById('error_container').style.visibility = 'hidden';" id="close_btn"></button>
+    <div class="alert alert-danger d-flex align-items-center" role="alert" id="warning" style="visibility: visible;">
+       {{profileError}}
+        <button type="button" class="btn-close" aria-label="Close" onclick="document.getElementById('warning').style.visibility = 'hidden';" id="close_btn"></button>
     </div>
     @endif
+
     <form action="/profile" method="POST" enctype="multipart/form-data">
         {{csrfField()}}
         <div class="wrapper bg-white mt-sm-5">
