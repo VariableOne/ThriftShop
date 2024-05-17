@@ -41,7 +41,7 @@
                         </div>
                         <!-- Weiterleitung zum Chat-->
                         <h5 class="mb-3">{{ user.username }}</h5>
-                        <a href="/message/{{ user.username }}">
+                        <a href="/message/{{ user.username }}" style="text-decoration: none;">
                             <input type="hidden" name="contact" value="{{ user.username }}">
                             <button class="btn btn-primary mr-3" type="submit">Zum Kontakt</button>
                         </a>
@@ -53,9 +53,9 @@
                         </form>
                     </div>
                     <br>
-                    @endeach
                     @else
                     <div class="list-group-item">Keine Kontakte vorhanden</div>
+                    @endeach
                     @endif
                     <br>
                     <a href="/profile">
